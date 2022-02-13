@@ -15,13 +15,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    <description>
-        spring Task 定时任务
-    </description>
+    <description>spring Task 定时任务</description>
 
     <dependencies>
-
-
         <!-- 定时任务
         <dependency>
 	      <groupId>com.xuxueli</groupId>
@@ -33,9 +29,6 @@
             <groupId>com.huike</groupId>
             <artifactId>huike-common</artifactId>
         </dependency>
-<<<<<<< HEAD:huike-task/pom.xml
-=======
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -48,8 +41,5 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-    </dependencies>
->>>>>>> a89c1ce12cfb3643528f0edecc6e2034a1285485:huike-quartz/pom.xml
-
     </dependencies>
 </project>

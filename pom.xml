@@ -306,6 +306,7 @@
         <module>huike-contract</module>
         <module>huike-report</module>
         <module>huike-task</module>
+        <module>huike-quartz</module>
     </modules>
     <packaging>pom</packaging>
 

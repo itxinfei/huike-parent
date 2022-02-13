@@ -11,33 +11,24 @@
 
     <artifactId>huike-clues</artifactId>
 
-    <description>
-        线索管理
-    </description>
+    <description>线索管理</description>
 
     <dependencies>
-
         <!-- 通用工具-->
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-common</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
-
-
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-system</artifactId>
         </dependency>
-
-
-
 
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -51,7 +42,7 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-        
+
         <!-- swagger2-->
         <!--防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本-->
         <dependency>

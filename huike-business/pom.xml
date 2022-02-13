@@ -29,16 +29,11 @@
             <artifactId>huike-common</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-clues</artifactId>
         </dependency>
 
-
-<<<<<<< HEAD
-
-=======
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -51,14 +46,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-	
-		<!-- swagger2-->
+
+        <!-- swagger2-->
         <!--防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本-->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
         </dependency>
->>>>>>> a89c1ce12cfb3643528f0edecc6e2034a1285485
     </dependencies>
-
 </project>

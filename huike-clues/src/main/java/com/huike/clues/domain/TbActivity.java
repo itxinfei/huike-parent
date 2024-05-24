@@ -1,6 +1,7 @@
 package com.huike.clues.domain;
 
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -13,11 +14,12 @@ import com.huike.common.core.domain.BaseEntity;
  * @author wgl
  * @date 2021-04-02
  */
-public class TbActivity extends BaseEntity
-{
+public class TbActivity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
     //编码
@@ -25,35 +27,51 @@ public class TbActivity extends BaseEntity
 
     private String name;
 
-    /** 渠道来源 */
+    /**
+     * 渠道来源
+     */
     @Excel(name = "渠道来源")
     private String channel;
 
-    /** 活动简介 */
+    /**
+     * 活动简介
+     */
     @Excel(name = "活动简介")
     private String info;
 
-    /** 活动类型 */
+    /**
+     * 活动类型
+     */
     @Excel(name = "活动类型")
     private String type;
 
-    /** 课程折扣 */
+    /**
+     * 课程折扣
+     */
     @Excel(name = "课程折扣")
     private Float discount;
 
-    /** 课程代金券 */
+    /**
+     * 课程代金券
+     */
     @Excel(name = "课程代金券")
     private Integer vouchers;
 
-    /** 状态 */
+    /**
+     * 状态
+     */
     @Excel(name = "状态")
     private String status;
 
-    /** 开始时间 */
+    /**
+     * 开始时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date beginTime;
 
-    /** 结束时间 */
+    /**
+     * 结束时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
@@ -65,40 +83,35 @@ public class TbActivity extends BaseEntity
         this.code = code;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
-    public void setChannel(String channel)
-    {
+
+    public void setChannel(String channel) {
         this.channel = channel;
     }
 
-    public String getChannel()
-    {
+    public String getChannel() {
         return channel;
     }
-    public void setInfo(String info)
-    {
+
+    public void setInfo(String info) {
         this.info = info;
     }
 
-    public String getInfo()
-    {
+    public String getInfo() {
         return info;
     }
-    public void setType(String type)
-    {
+
+    public void setType(String type) {
         this.type = type;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
@@ -110,40 +123,35 @@ public class TbActivity extends BaseEntity
         this.discount = discount;
     }
 
-    public void setVouchers(Integer vouchers)
-    {
+    public void setVouchers(Integer vouchers) {
         this.vouchers = vouchers;
     }
 
-    public Integer getVouchers()
-    {
+    public Integer getVouchers() {
         return vouchers;
     }
-    public void setStatus(String status)
-    {
+
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
-    public void setBeginTime(Date beginTime)
-    {
+
+    public void setBeginTime(Date beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getBeginTime()
-    {
+    public Date getBeginTime() {
         return beginTime;
     }
-    public void setEndTime(Date endTime)
-    {
+
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
-    public Date getEndTime()
-    {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -157,18 +165,6 @@ public class TbActivity extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("name", getName())
-                .append("channel", getChannel())
-                .append("info", getInfo())
-                .append("type", getType())
-                .append("discount", getDiscount())
-                .append("vouchers", getVouchers())
-                .append("status", getStatus())
-                .append("beginTime", getBeginTime())
-                .append("endTime", getEndTime())
-                .append("code",getCode())
-                .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", getId()).append("name", getName()).append("channel", getChannel()).append("info", getInfo()).append("type", getType()).append("discount", getDiscount()).append("vouchers", getVouchers()).append("status", getStatus()).append("beginTime", getBeginTime()).append("endTime", getEndTime()).append("code", getCode()).toString();
     }
 }

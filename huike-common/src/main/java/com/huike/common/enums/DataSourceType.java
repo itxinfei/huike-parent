@@ -2,11 +2,8 @@ package com.huike.common.enums;
 
 /**
  * 数据源
- * 
- * 
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */

@@ -8,14 +8,14 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * 活动管理Mapper接口
- * 
+ *
  * @author wgl
  * @date 2021-04-01
  */
 public interface TbActivityMapper {
     /**
      * 查询活动管理
-     * 
+     *
      * @param id 活动管理ID
      * @return 活动管理
      */
@@ -27,7 +27,7 @@ public interface TbActivityMapper {
 
     /**
      * 查询活动管理列表
-     * 
+     *
      * @param tbActivity 活动管理
      * @return 活动管理集合
      */
@@ -38,7 +38,7 @@ public interface TbActivityMapper {
 
     /**
      * 新增活动管理
-     * 
+     *
      * @param tbActivity 活动管理
      * @return 结果
      */
@@ -46,7 +46,7 @@ public interface TbActivityMapper {
 
     /**
      * 修改活动管理
-     * 
+     *
      * @param tbActivity 活动管理
      * @return 结果
      */
@@ -54,7 +54,7 @@ public interface TbActivityMapper {
 
     /**
      * 删除活动管理
-     * 
+     *
      * @param id 活动管理ID
      * @return 结果
      */
@@ -62,7 +62,7 @@ public interface TbActivityMapper {
 
     /**
      * 批量删除活动管理
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

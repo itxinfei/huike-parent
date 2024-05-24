@@ -15,30 +15,31 @@ import com.huike.common.core.domain.entity.SysUser;
 
 /**
  * Treeselect树结构实体类
- * 
- * 
  */
-public class TreeSelect implements Serializable
-{
+public class TreeSelect implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** 节点ID */
+    /**
+     * 节点ID
+     */
     protected Object id;
 
-    /** 节点名称 */
+    /**
+     * 节点名称
+     */
     protected String label;
 
-    /** 子节点 */
+    /**
+     * 子节点
+     */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    protected List<TreeSelect> children=new ArrayList<>();
+    protected List<TreeSelect> children = new ArrayList<>();
 
-    public TreeSelect()
-    {
+    public TreeSelect() {
 
     }
 
-    public TreeSelect(SysDept dept)
-    {
+    public TreeSelect(SysDept dept) {
         this.id = dept.getDeptId();
         this.label = dept.getDeptName();
         this.children = dept.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
@@ -62,8 +63,7 @@ public class TreeSelect implements Serializable
 //        }
 //    }
 
-    public TreeSelect(SysMenu menu)
-    {
+    public TreeSelect(SysMenu menu) {
         this.id = menu.getMenuId();
         this.label = menu.getMenuName();
         this.children = menu.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
@@ -101,31 +101,24 @@ public class TreeSelect implements Serializable
         this.id = id;
     }
 
-    public String getLabel()
-    {
+    public String getLabel() {
         return label;
     }
 
-    public void setLabel(String label)
-    {
+    public void setLabel(String label) {
         this.label = label;
     }
 
-    public List<TreeSelect> getChildren()
-    {
+    public List<TreeSelect> getChildren() {
         return children;
     }
 
-    public void setChildren(List<TreeSelect> children)
-    {
+    public void setChildren(List<TreeSelect> children) {
         this.children = children;
     }
 
     @Override
     public String toString() {
-        return "TreeSelect{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                '}';
+        return "TreeSelect{" + "id=" + id + ", label='" + label + '\'' + '}';
     }
 }

@@ -2,11 +2,8 @@ package com.huike.common.enums;
 
 /**
  * 业务操作类型
- * 
- * 
  */
-public enum BusinessType
-{
+public enum BusinessType {
     /**
      * 其它
      */
@@ -51,7 +48,7 @@ public enum BusinessType
      * 生成代码
      */
     GENCODE,
-    
+
     /**
      * 清空数据
      */

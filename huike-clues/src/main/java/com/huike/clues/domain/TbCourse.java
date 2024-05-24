@@ -11,33 +11,46 @@ import com.huike.common.core.domain.BaseEntity;
  * @author wgl
  * @date 2021-04-02
  */
-public class TbCourse extends BaseEntity
-{
+public class TbCourse extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 课程id */
+    /**
+     * 课程id
+     */
     private Long id;
 
-    /** 课程名称 */
+    /**
+     * 课程名称
+     */
     @Excel(name = "课程名称")
     private String name;
 
-    /** 课程编码 */
+    /**
+     * 课程编码
+     */
     private String code;
 
-    /** 课程学科 */
+    /**
+     * 课程学科
+     */
     @Excel(name = "课程学科")
     private String subject;
 
-    /** 价格 */
+    /**
+     * 价格
+     */
     @Excel(name = "价格")
     private Integer price;
 
-    /** 适用人群 */
+    /**
+     * 适用人群
+     */
     @Excel(name = "适用人群")
     private String applicablePerson;
 
-    /** 课程描述信息 */
+    /**
+     * 课程描述信息
+     */
     @Excel(name = "课程描述信息")
     private String info;
 
@@ -50,71 +63,56 @@ public class TbCourse extends BaseEntity
         this.code = code;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
-    public void setName(String name)
-    {
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
-    public void setSubject(String subject)
-    {
+
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 
-    public String getSubject()
-    {
+    public String getSubject() {
         return subject;
     }
-    public void setPrice(Integer price)
-    {
+
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public Integer getPrice()
-    {
+    public Integer getPrice() {
         return price;
     }
-    public void setApplicablePerson(String applicablePerson)
-    {
+
+    public void setApplicablePerson(String applicablePerson) {
         this.applicablePerson = applicablePerson;
     }
 
-    public String getApplicablePerson()
-    {
+    public String getApplicablePerson() {
         return applicablePerson;
     }
-    public void setInfo(String info)
-    {
+
+    public void setInfo(String info) {
         this.info = info;
     }
 
-    public String getInfo()
-    {
+    public String getInfo() {
         return info;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("name", getName())
-                .append("subject", getSubject())
-                .append("price", getPrice())
-                .append("applicablePerson", getApplicablePerson())
-                .append("info", getInfo())
-                .append("createTime", getCreateTime())
-                .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", getId()).append("name", getName()).append("subject", getSubject()).append("price", getPrice()).append("applicablePerson", getApplicablePerson()).append("info", getInfo()).append("createTime", getCreateTime()).toString();
     }
 }

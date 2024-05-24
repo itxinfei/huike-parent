@@ -20,10 +20,10 @@ import java.util.List;
 
 
 /**
- *  admin 处理策略
- *
+ * admin 处理策略
+ * <p>
  * 由admin来处理所有的线索导入和转商机的数据
- *
+ * <p>
  * 全部导入到admin 统一由admin来处理所有的线索
  * exchange 转商机的时候统一转换到admin，再由admin来统一分片商机
  */
@@ -32,7 +32,7 @@ import java.util.List;
 public class AdminStrategy implements Rule {
 
     @Autowired
-    private TbAssignRecordMapper  assignRecordMapper;
+    private TbAssignRecordMapper assignRecordMapper;
 
     @Autowired
     private SysUserMapper userMapper;
@@ -47,12 +47,13 @@ public class AdminStrategy implements Rule {
 
     /**
      * 转商机时的方法
+     *
      * @param business
      */
     @Override
     public Integer transforBusiness(TbBusiness business) {
         //默认分配给管理员
-        TbAssignRecord tbAssignRecord =new TbAssignRecord();
+        TbAssignRecord tbAssignRecord = new TbAssignRecord();
         tbAssignRecord.setAssignId(business.getId());
         tbAssignRecord.setUserId(ADMIN.getUserId());
         tbAssignRecord.setUserName(ADMIN.getUserName());

@@ -288,5 +288,40 @@
         update tb_business set end_time=#{endTime},next_time = null where id = #{id}
     </update>
 
+    <!--商机数量-->
+    <select id="getBusinessNums" resultType="java.lang.Integer">
+        select count(id) from tb_business where clue_id is not null AND `status` IN (1,2,4,7)
+        <if test="beginCreateTime != null and beginCreateTime != ''"><!-- 开始创建时间 -->
+            and date_format(create_time,'%y-%m-%d') &gt;= date_format(#{beginCreateTime},'%y-%m-%d')
+        </if>
+        <if test="endCreateTime != null and endCreateTime != ''"><!--  -->
+            and date_format(create_time,'%y-%m-%d') &lt;= date_format(#{endCreateTime},'%y-%m-%d')
+        </if>
+    </select>
 
+    <!--获取商机总数量-->
+    <select id="getAll" resultType="java.lang.Integer">
+        select count(id) from tb_business
+        <where>
+            <if test="beginCreateTime != null and beginCreateTime != ''"><!-- 开始创建时间 -->
+                and date_format(create_time,'%y-%m-%d') &gt;= date_format(#{beginCreateTime},'%y-%m-%d')
+            </if>
+            <if test="endCreateTime != null and endCreateTime != ''"><!--  -->
+                and date_format(create_time,'%y-%m-%d') &lt;= date_format(#{endCreateTime},'%y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!--漏斗图线索总数-->
+    <select id="getCluesNums" resultType="java.lang.Integer">
+        select count(id) from tb_clue
+        <where>
+            <if test="beginCreateTime != null and beginCreateTime != ''"><!-- 开始创建时间 -->
+                and date_format(create_time,'%y-%m-%d') &gt;= date_format(#{beginCreateTime},'%y-%m-%d')
+            </if>
+            <if test="endCreateTime != null and endCreateTime != ''"><!--  -->
+                and date_format(create_time,'%y-%m-%d') &lt;= date_format(#{endCreateTime},'%y-%m-%d')
+            </if>
+        </where>
+    </select>
 </mapper>

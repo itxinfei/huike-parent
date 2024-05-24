@@ -13,7 +13,6 @@
     <url>http://www.huike.vip</url>
     <description>会客crm管理系统</description>
 
-
     <modules>
         <module>huike-admin</module>
         <module>huike-framework</module>
@@ -21,12 +20,11 @@
         <module>huike-common</module>
         <module>huike-clues</module>
         <module>huike-business</module>
-        <module>huike-mybatis-review</module>
+        <module>huike-generator</module>
         <module>huike-contract</module>
         <module>huike-report</module>
         <module>huike-task</module>
     </modules>
-
 
     <properties>
         <huike.version>3.4.0</huike.version>

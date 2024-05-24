@@ -57,10 +57,55 @@ public interface ReportMapper {
 						  @Param("endTime") String endCreateTime,
 						  @Param("username") String username);
 
+
+
 	/**=========================================今日简报========================================*/
 
 
 
-	/**=========================================待办========================================*/
+/**=========================================待办========================================*/
+	/**
+	 * 待跟进线索数目
+	 * @param beginCreateTime
+	 * @param endCreateTime
+	 * @param username
+	 * @return
+	 */
+	Integer getTofollowedCluesNum(@Param("startTime") String beginCreateTime,
+								  @Param("endTime") String endCreateTime,
+								  @Param("username") String username);
+
+	/**
+	 * 待跟进商机数目
+	 * @param beginCreateTime
+	 * @param endCreateTime
+	 * @param username
+	 * @return
+	 */
+	Integer getTofollowedBusinessNum(@Param("startTime") String beginCreateTime,
+									 @Param("endTime") String endCreateTime,
+									 @Param("username") String username);
+
+	/**
+	 * 待分配线索数目
+	 * @param beginCreateTime
+	 * @param endCreateTime
+	 * @param username
+	 * @return
+	 */
+	Integer getToallocatedCluesNum(@Param("startTime") String beginCreateTime,
+								   @Param("endTime") String endCreateTime,
+								   @Param("username") String username);
+
+	/**
+	 * 待分配商机数目
+	 * @param beginCreateTime
+	 * @param endCreateTime
+	 * @param username
+	 * @return
+	 */
+	Integer getToallocatedBusinessNum(@Param("startTime") String beginCreateTime,
+									  @Param("endTime") String endCreateTime,
+									  @Param("username") String username);
 
 }

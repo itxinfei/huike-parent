@@ -12,33 +12,44 @@ import java.util.List;
 /**
  * 规则分配对象 tb_rule_assign
  */
-public class TbRuleAssign extends BaseEntity
-{
+public class TbRuleAssign extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 线索id */
+    /**
+     * 线索id
+     */
     private Long id;
 
-    /** 规则集合 */
+    /**
+     * 规则集合
+     */
     @Excel(name = "规则集合")
     private String ruleCondition;
 
-    /** 规则表达式 */
+    /**
+     * 规则表达式
+     */
     @Excel(name = "规则表达式")
     @JsonIgnore
     private String ruleExpression;
 
-    /** 分配对象 */
+    /**
+     * 分配对象
+     */
     @Excel(name = "分配对象")
     private String assignObject;
 
-    private List<String> assignObjectNames=new ArrayList<>();
+    private List<String> assignObjectNames = new ArrayList<>();
 
-    /** 分配类型(本人,角色，组织) */
+    /**
+     * 分配类型(本人,角色，组织)
+     */
     @Excel(name = "分配类型(本人,角色，组织)")
     private String assignType;
 
-    /** 规则顺序 */
+    /**
+     * 规则顺序
+     */
     @Excel(name = "规则顺序")
     private Long ruleOrder;
 
@@ -70,40 +81,35 @@ public class TbRuleAssign extends BaseEntity
         this.rulesList = rulesList;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
-    public void setRuleCondition(String ruleCondition)
-    {
+
+    public void setRuleCondition(String ruleCondition) {
         this.ruleCondition = ruleCondition;
     }
 
-    public String getRuleCondition()
-    {
+    public String getRuleCondition() {
         return ruleCondition;
     }
-    public void setRuleExpression(String ruleExpression)
-    {
+
+    public void setRuleExpression(String ruleExpression) {
         this.ruleExpression = ruleExpression;
     }
 
-    public String getRuleExpression()
-    {
+    public String getRuleExpression() {
         return ruleExpression;
     }
-    public void setAssignObject(String assignObject)
-    {
+
+    public void setAssignObject(String assignObject) {
         this.assignObject = assignObject;
     }
 
-    public String getAssignObject()
-    {
+    public String getAssignObject() {
         return assignObject;
     }
 
@@ -115,31 +121,20 @@ public class TbRuleAssign extends BaseEntity
         this.assignType = assignType;
     }
 
-    public void setRuleOrder(Long ruleOrder)
-    {
+    public void setRuleOrder(Long ruleOrder) {
         this.ruleOrder = ruleOrder;
     }
 
-    public Long getRuleOrder()
-    {
+    public Long getRuleOrder() {
         return ruleOrder;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("ruleCondition", getRuleCondition())
-                .append("ruleExpression", getRuleExpression())
-                .append("assignObject", getAssignObject())
-                .append("assignType", getAssignType())
-                .append("ruleOrder", getRuleOrder())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", getId()).append("ruleCondition", getRuleCondition()).append("ruleExpression", getRuleExpression()).append("assignObject", getAssignObject()).append("assignType", getAssignType()).append("ruleOrder", getRuleOrder()).append("createBy", getCreateBy()).append("createTime", getCreateTime()).toString();
     }
 
-    public enum AssignType{
+    public enum AssignType {
         /**
          * 小时
          */
@@ -161,16 +156,13 @@ public class TbRuleAssign extends BaseEntity
         ROLE("3");
 
 
-
         private String value;
 
-        private AssignType(String value)
-        {
+        private AssignType(String value) {
             this.value = value;
         }
 
-        public String getValue()
-        {
+        public String getValue() {
             return value;
         }
     }

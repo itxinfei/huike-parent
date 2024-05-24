@@ -3,20 +3,18 @@ package com.huike.clues.service;
 import java.util.List;
 import java.util.Map;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huike.clues.domain.TbClue;
+import com.huike.clues.domain.dto.ImportResultDTO;
 import com.huike.clues.domain.vo.TbClueExcelVo;
-import com.huike.clues.dto.TbClueDto;
 import com.huike.common.core.domain.entity.SysUser;
 
 /**
  * 线索管理Service接口
  * 
- * @author ruoyi
+ * @author wgl
  * @date 2021-04-02
  */
-public interface ITbClueService 
-{
+public interface ITbClueService {
     /**
      * 查询线索管理
      * 
@@ -84,14 +82,6 @@ public interface ITbClueService
     public String gain(Long[] clueIds, Long userId);
 
 
-    /**
-     * 伪线索
-     * @param id
-     * @param reason
-     * @param remark
-     * @return
-     */
-    public int falseClue(Long id, String reason,String remark);
 
 
     /**
@@ -114,33 +104,11 @@ public interface ITbClueService
 	 * @return
 	 */
 	public boolean checkCluePhoneExis(String phone);
-	
-	/**
-	 * 分页查询所有的线索
-	 * @param tbClue
-	 * @return
-	 */
-	public Page<TbClue> selectTbClueList(TbClueDto tbClue);
-	
-	/**
-	 * 分页查询规则池
-	 * @param tbClue
-	 * @return
-	 */
-	public Page<TbClue> selectTbCluePool(TbClueDto tbClue);
-	
-	/**
-	 * 添加线索
-	 * @param tbClue
-	 * @return
-	 */
-	public int insertTbClue(TbClueDto tbClue);
 
-	/**
-	 * 修改线索
-	 * @param clueDto
-	 * @return
-	 */
-	public int updateTbClue(TbClueDto clueDto);
-
+    /**
+     * 批量导入数据
+     * @param data
+     * @return
+     */
+    ImportResultDTO importCluesData(TbClueExcelVo data);
 }

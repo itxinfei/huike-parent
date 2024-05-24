@@ -5,13 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
+import com.huike.report.domain.vo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,7 @@ import com.huike.common.core.domain.entity.SysDept;
 import com.huike.common.utils.SecurityUtils;
 import com.huike.contract.domain.TbContract;
 import com.huike.contract.mapper.TbContractMapper;
-import com.huike.report.domain.vo.ActivityStatisticsVo;
-import com.huike.report.domain.vo.IndexVo;
-import com.huike.report.domain.vo.LineChartVo;
-import com.huike.report.domain.vo.LineSeriesVo;
-import com.huike.report.domain.vo.VulnerabilityMapVo;
+import com.huike.report.mapper.ReportMapper;
 import com.huike.report.service.IReportService;
 
 @Service
@@ -63,17 +60,20 @@ public class ReportServiceImpl implements IReportService {
     @Autowired
     private TbAssignRecordMapper assignRecordMapper;
 
+    @Autowired
+    private ReportMapper reportMpper;
+
     @Override
-    public LineChartVo contractStatistics(String beginCreateTime, String endCreateTime) {
-        LineChartVo lineChartVo =new LineChartVo();
+    public LineChartVO contractStatistics(String beginCreateTime, String endCreateTime) {
+        LineChartVO lineChartVo =new LineChartVO();
         try {
             List<String> timeList= findDates(beginCreateTime,endCreateTime);
             lineChartVo.setxAxis(timeList);
-            List<LineSeriesVo> series = new ArrayList<>();
+            List<LineSeriesVO> series = new ArrayList<>();
             List<Map<String,Object>>  statistics = contractMapper.contractStatistics(beginCreateTime,endCreateTime);
-            LineSeriesVo lineSeriesDTO1=new LineSeriesVo();
+            LineSeriesVO lineSeriesDTO1=new LineSeriesVO();
             lineSeriesDTO1.setName("新增客户数");
-            LineSeriesVo lineSeriesDTO2=new LineSeriesVo();
+            LineSeriesVO lineSeriesDTO2=new LineSeriesVO();
             lineSeriesDTO2.setName("客户总数");
             int sum = 0;
             for (String s : timeList) {
@@ -97,25 +97,14 @@ public class ReportServiceImpl implements IReportService {
     }
 
     @Override
-    public  List<Map<String, Object>> subjectStatistics(String beginCreateTime, String endCreateTime) {
-        List<Map<String, Object>> data= contractMapper.subjectStatistics(beginCreateTime,endCreateTime);
-        for (Map<String, Object> datum : data) {
-            String subjectValue= (String) datum.get("subject");
-            String lable=  sysDictDataMapper.selectDictLabel("course_subject",subjectValue);
-            datum.put("subject",lable);
-        }
-        return data;
-    }
-
-    @Override
-    public LineChartVo salesStatistics(String beginCreateTime, String endCreateTime) {
-        LineChartVo lineChartVo =new LineChartVo();
+    public LineChartVO salesStatistics(String beginCreateTime, String endCreateTime) {
+        LineChartVO lineChartVo =new LineChartVO();
         try {
             List<String> timeList= findDates(beginCreateTime,endCreateTime);
             lineChartVo.setxAxis(timeList);
-            List<LineSeriesVo> series = new ArrayList<>();
+            List<LineSeriesVO> series = new ArrayList<>();
             List<Map<String,Object>>  statistics = contractMapper.salesStatistics(beginCreateTime,endCreateTime);
-            LineSeriesVo lineSeriesVo=new LineSeriesVo();
+            LineSeriesVO lineSeriesVo=new LineSeriesVO();
             lineSeriesVo.setName("销售统计");
             int sum=0;
             for (String s : timeList) {
@@ -132,46 +121,15 @@ public class ReportServiceImpl implements IReportService {
         } catch (ParseException e) {
             // e.printStackTrace();
         }
-
-        return  lineChartVo;
-    }
-
-
-    @Override
-    public LineChartVo cluesStatistics(String beginCreateTime, String endCreateTime) {
-        LineChartVo lineChartVo =new LineChartVo();
-        try {
-            List<String> timeList= findDates(beginCreateTime,endCreateTime);
-            lineChartVo.setxAxis(timeList);
-            List<LineSeriesVo> series = new ArrayList<>();
-            List<Map<String,Object>>  statistics = clueMapper.cluesStatistics(beginCreateTime,endCreateTime);
-            LineSeriesVo lineSeriesVo1=new LineSeriesVo();
-            lineSeriesVo1.setName("新增客户数");
-            LineSeriesVo lineSeriesVo2=new LineSeriesVo();
-            lineSeriesVo2.setName("客户总数");
-            int sum = 0;
-            for (String s : timeList) {
-                Optional optional=  statistics.stream().filter(d->d.get("dd").equals(s)).findFirst();
-                if(optional.isPresent()){
-                    Map<String,Object> cuurentData=  (Map<String,Object>)optional.get();
-                    lineSeriesVo1.getData().add(cuurentData.get("num"));
-                    sum += Integer.parseInt(cuurentData.get("num").toString());
-                }else{
-                    lineSeriesVo1.getData().add(0);
-                }
-                lineSeriesVo2.getData().add(sum);
-            }
-            series.add(lineSeriesVo1);
-            series.add(lineSeriesVo2);
-            lineChartVo.setSeries(series);
-        } catch (ParseException e) {
-            // e.printStackTrace();
-        }
         return  lineChartVo;
     }
 
 
 
+
+    /**
+     * 渠道统计
+     */
     @Override
     public List<Map<String, Object>> chanelStatistics(String beginCreateTime, String endCreateTime) {
         List<Map<String, Object>> data= contractMapper.chanelStatistics(beginCreateTime,endCreateTime);
@@ -185,7 +143,7 @@ public class ReportServiceImpl implements IReportService {
 
     @Override
     public List<TbContract> contractReportList(TbContract tbContract) {
-       return contractMapper.selectTbContractList(tbContract);
+        return contractMapper.selectTbContractList(tbContract);
     }
 
 
@@ -252,7 +210,7 @@ public class ReportServiceImpl implements IReportService {
      */
     @Override
     public List<Map<String, Object>> ownerShipStatisticsList(String beginCreateTime, String endCreateTime) {
-       return  contractMapper.ownerShipStatistics(beginCreateTime,endCreateTime);
+        return  contractMapper.ownerShipStatistics(beginCreateTime,endCreateTime);
     }
 
 
@@ -292,36 +250,30 @@ public class ReportServiceImpl implements IReportService {
             if (contractCount != null) {
                 dto.setCustomersNum(Integer.parseInt(contractCount.get("customersNum").toString()));
                 if(contractCount.get("amount")==null) {
-                	dto.setAmount(0d);
+                    dto.setAmount(0d);
                 }else {
-                	dto.setAmount((Double) contractCount.get("amount"));
+                    dto.setAmount((Double) contractCount.get("amount"));
                 }
                 if(contractCount.get("cost")==null) {
-                	dto.setCost(0d);
+                    dto.setCost(0d);
                 }else {
-                	dto.setCost((Double) contractCount.get("cost"));
+                    dto.setCost((Double) contractCount.get("cost"));
                 }
-                
+
             }
             list.add(dto);
         }
         return list;
     }
 
-    @Override
-    public VulnerabilityMapVo getVulnerabilityMap(String beginCreateTime, String endCreateTime) {
-        VulnerabilityMapVo vulnerabilityMapDTO =new VulnerabilityMapVo();
-        //线索数
-        vulnerabilityMapDTO.setCluesNums(clueMapper.countAllClues(beginCreateTime,endCreateTime));
-        //有效线索数
-        vulnerabilityMapDTO.setEffectiveCluesNums(clueMapper.effectiveCluesNums(beginCreateTime,endCreateTime));
-        //商机数
-        vulnerabilityMapDTO.setBusinessNums(businessMapper.businessNumsFromClue(beginCreateTime,endCreateTime));
-        //合同数
-        vulnerabilityMapDTO.setContractNums(contractMapper.contractNumsFromBusiness(beginCreateTime,endCreateTime));
-        return vulnerabilityMapDTO;
-    }
-
+    /**
+     * *************看我看我**************
+     * 传入两个时间范围，返回这两个时间范围内的所有时间，并保存在一个集合中
+     * @param beginTime
+     * @param endTime
+     * @return
+     * @throws ParseException
+     */
     public static List<String> findDates(String beginTime, String endTime)
             throws ParseException {
         List<String> allDate = new ArrayList();
@@ -369,81 +321,51 @@ public class ReportServiceImpl implements IReportService {
         return list;
     }
 
-    @Override
-    public List<Map<String, Object>> businessChangeStatisticsForIndex(IndexStatisticsVo request) {
-        int allBusiness=  businessMapper.countAllBusiness(request.getBeginCreateTime(),request.getEndCreateTime());
-        List<Map<String,Object>> list= businessMapper.countAllContractByUser(request);
-        for (Map<String, Object> datum : list) {
-            Long deptId= (Long) datum.get("dept_id");
-            if(deptId!=null){
-                SysDept dept = deptMapper.selectDeptById(deptId);
-                datum.put("deptName", dept.getDeptName());
-            }
-            Long num= (Long) datum.get("num");
-            datum.put("radio",getRadio(allBusiness,num));
-        }
-        Collections.sort(list,new Comparator<Map<String,Object>>() {
 
-			@Override
-			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
-				BigDecimal radio1 = (BigDecimal)o1.get("radio");
-				BigDecimal radio2 = (BigDecimal)o2.get("radio");
-				return 0-radio1.compareTo(radio2);
-			}
-        	
-        });
-        return list;
-    }
-    
     /**
-     * 线索转化龙虎榜
+     * ************看我看我***********
+     * 用我能少走很多路
+     * 我是用来机选百分比的方法
+      * @param all
+     * @param num
+     * @return
      */
-	@Override
-	public List<Map<String, Object>> clueChangeStatisticsForIndex(IndexStatisticsVo request) {
-		int allclues=  clueMapper.countAllClues(request.getBeginCreateTime(),request.getEndCreateTime());
-        List<Map<String,Object>> list= clueMapper.countAllClueByUser(request);
-        for (Map<String, Object> datum : list) {
-            Long deptId= (Long) datum.get("dept_id");
-            if(deptId!=null){
-                SysDept dept= deptMapper.selectDeptById(deptId);
-                datum.put("deptName", dept.getDeptName());
-            }
-            Long num= (Long) datum.get("num");
-            datum.put("radio",getRadio(allclues,num));
+    private BigDecimal getRadio(Integer all,Long num) {
+        if(all.intValue()==0){
+            return new BigDecimal(0);
         }
-        Collections.sort(list,new Comparator<Map<String,Object>>() {
+        BigDecimal numBigDecimal = new BigDecimal(num);
+        BigDecimal allBigDecimal = new BigDecimal(all);
+        BigDecimal divide = numBigDecimal.divide(allBigDecimal,4,BigDecimal.ROUND_HALF_UP);
+        return divide.multiply(new BigDecimal(100));
+    }
 
-			@Override
-			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
-				BigDecimal radio1 = (BigDecimal)o1.get("radio");
-				BigDecimal radio2 = (BigDecimal)o2.get("radio");
-				return 0-radio1.compareTo(radio2);
-			}
-        	
-        });
-        return list;
-	}
-	
-	
-	private BigDecimal getRadio(Integer all,Long num) {
-		BigDecimal numBigDecimal = new BigDecimal(num);
-		BigDecimal allBigDecimal = new BigDecimal(all);
-		if(allBigDecimal.compareTo(BigDecimal.ZERO)==0) {
-			return new BigDecimal(0);
-		}
-		BigDecimal divide = numBigDecimal.divide(allBigDecimal,4,BigDecimal.ROUND_HALF_UP);
-		return divide.multiply(new BigDecimal(100));
-	}
 
-	@Override
-	public Map<String, Object> getcontractsBasicInfo(IndexStatisticsVo request, String now) {
-		String username = SecurityUtils.getUsername();
-		Map<String, Object> result = clueMapper.getcontractsBasicInfo(request,now,username);
-		if(!username.equals("admin")) {
-			//不是admin 不能看见待分配商机和待分配线索
-			result.put("toallocatedBusinessNum", 0);
-			result.put("toallocatedCluesNum", 0);
-		}
-		return result;
-	}
+    /**
+     * 获取首页基本数据
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    @Override
+    public IndexBaseInfoVO getBaseInfo(String beginCreateTime, String endCreateTime) {
+        //1）构建一个空的结果集对象
+        IndexBaseInfoVO result = new IndexBaseInfoVO();
+        //2 封装结果集属性
+        // 2.1 由于查询需要用到用户名 调用工具类获取用户名
+        String username = SecurityUtils.getUsername();
+        try {
+            //3 封装结果集对象
+            result.setCluesNum(reportMpper.getCluesNum(beginCreateTime, endCreateTime, username));
+            result.setBusinessNum(reportMpper.getBusinessNum(beginCreateTime, endCreateTime, username));
+            result.setContractNum(reportMpper.getContractNum(beginCreateTime, endCreateTime, username));
+            result.setSalesAmount(reportMpper.getSalesAmount(beginCreateTime, endCreateTime, username));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        //4 返回结果集对象
+        return result;
+    }
+
 }

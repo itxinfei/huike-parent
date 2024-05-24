@@ -11,25 +11,17 @@
 
     <artifactId>huike-system</artifactId>
 
-    <description>system系统模块</description>
+    <description>
+        system系统模块
+    </description>
 
     <dependencies>
+
         <!-- 通用工具-->
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
     </dependencies>
+
 </project>

@@ -58,8 +58,7 @@ public class DataScopeAspect {
 
     // 配置织入点
     @Pointcut("@annotation(com.huike.common.annotation.DataScope)")
-    public void dataScopePointCut()
-    {
+    public void dataScopePointCut(){
     }
 
     @Before("dataScopePointCut()")
@@ -146,7 +145,7 @@ public class DataScopeAspect {
             if (StringUtils.isNotNull(params) && params instanceof BaseEntity)
             {
                 BaseEntity baseEntity = (BaseEntity) params;
-                baseEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
+                baseEntity.getParams().put(DATA_SCOPE, sqlString.substring(4) );
             }
         }
     }

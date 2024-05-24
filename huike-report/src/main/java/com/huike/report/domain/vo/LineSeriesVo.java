@@ -3,7 +3,7 @@ package com.huike.report.domain.vo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LineSeriesVo {
+public class LineSeriesVO {
 
     private String name;
 
@@ -24,4 +24,5 @@ public class LineSeriesVo {
     public void setData(List<Object> data) {
         this.data = data;
     }
+
 }

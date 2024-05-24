@@ -3,16 +3,13 @@ package com.huike.report.service;
 import java.util.List;
 import java.util.Map;
 
+import com.huike.report.domain.vo.*;
 import org.apache.ibatis.annotations.Param;
 
 import com.huike.clues.domain.TbActivity;
 import com.huike.clues.domain.TbClue;
 import com.huike.clues.domain.vo.IndexStatisticsVo;
 import com.huike.contract.domain.TbContract;
-import com.huike.report.domain.vo.ActivityStatisticsVo;
-import com.huike.report.domain.vo.IndexVo;
-import com.huike.report.domain.vo.LineChartVo;
-import com.huike.report.domain.vo.VulnerabilityMapVo;
 
 public interface IReportService {
 
@@ -22,16 +19,8 @@ public interface IReportService {
      * @param endCreateTime
      * @return
      */
-    public LineChartVo contractStatistics(String beginCreateTime, String endCreateTime);
+    public LineChartVO contractStatistics(String beginCreateTime, String endCreateTime);
 
-
-    /**
-     * 学科分布统计
-     * @param beginCreateTime
-     * @param endCreateTime
-     * @return
-     */
-    public List<Map<String, Object>> subjectStatistics(String beginCreateTime, String endCreateTime);
 
     /**
      * 客户统计报表
@@ -46,24 +35,33 @@ public interface IReportService {
      * @param endCreateTime
      * @return
      */
-    public LineChartVo salesStatistics(String beginCreateTime, String endCreateTime);
+    public LineChartVO salesStatistics(String beginCreateTime, String endCreateTime);
 
 
-
-    public List<Map<String, Object>> deptStatisticsList(String beginCreateTime, String endCreateTime);
-
-
-    public List<Map<String, Object>> channelStatisticsList(String beginCreateTime, String endCreateTime);
-
-    public List<Map<String, Object>> ownerShipStatisticsList(String beginCreateTime, String endCreateTime);
 
     /**
-     * 线索统计
+     * 销售统计部门报表
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
-    public LineChartVo cluesStatistics(String beginCreateTime, String endCreateTime);
+    public List<Map<String, Object>> deptStatisticsList(String beginCreateTime, String endCreateTime);
+
+    /**
+     * 销售统计渠道报表
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    public List<Map<String, Object>> channelStatisticsList(String beginCreateTime, String endCreateTime);
+    /**
+     * 销售统计归属人报表
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    public List<Map<String, Object>> ownerShipStatisticsList(String beginCreateTime, String endCreateTime);
+
 
 
     /**
@@ -87,11 +85,12 @@ public interface IReportService {
 
     public List<TbClue> cluesStatisticsList(TbClue clue);
 
-
+    /**
+     * 活动渠道统计
+     * @param activity
+     * @return
+     */
     public List<ActivityStatisticsVo> activityStatisticsList(TbActivity activity);
-
-    //漏洞统计
-    public VulnerabilityMapVo getVulnerabilityMap(String beginCreateTime, String endCreateTime);
 
 
     public IndexVo getIndex(IndexStatisticsVo request);
@@ -100,14 +99,13 @@ public interface IReportService {
     public List<Map<String,Object>> salesStatisticsForIndex(IndexStatisticsVo request);
 
 
-    public List<Map<String,Object>> businessChangeStatisticsForIndex(IndexStatisticsVo request);
-
-
-	public List<Map<String, Object>> clueChangeStatisticsForIndex(IndexStatisticsVo request);
-
-	
-	public Map<String, Object> getcontractsBasicInfo(IndexStatisticsVo request, String now);
-
+    /**
+     * 首页基本数据展示
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    IndexBaseInfoVO getBaseInfo(String beginCreateTime, String endCreateTime);
 
 
 }

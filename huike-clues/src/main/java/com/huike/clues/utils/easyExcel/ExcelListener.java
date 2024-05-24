@@ -9,73 +9,58 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.huike.clues.domain.dto.ImportResultDTO;
 import com.huike.clues.domain.vo.TbClueExcelVo;
 import com.huike.clues.service.ITbClueService;
 
+/**
+ * EasyExcel监听器，用于解析数据并执行操作
+ */
 public class ExcelListener extends AnalysisEventListener<TbClueExcelVo> {
-	
-	private Map<String,Integer> map = new ConcurrentHashMap<String,Integer>();
-	
-	//每过5条插入一次
-	private static final int BATCH_COUNT = 10;
-	
-	private Integer rowCount=0;
-	
+
+	/**
+	 * 利用构造方法获取对应的service
+	 */
 	public ITbClueService clueService;
-	
+
+	private ImportResultDTO resultDTO;
+
+	/**
+	 * 提供带参构造方法，在这里需要通过构造方法的方式获取对应的service层
+	 * 谁调用这个监听器谁提供需要的service
+	 * @param clueService
+	 */
 	public ExcelListener(ITbClueService clueService) {
 		this.clueService = clueService;
-    }
-	
+		this.resultDTO = new ImportResultDTO();
+	}
 
-//	@Override
-//	public void invoke(TbClueExcelVo data, AnalysisContext context) {
-//		list.add(data);
-//		rowCount++;
-//        //得到当前操作表格的所有行数，由于行数包含了表头，所以需要减一为所有数据的条目数
-//        Integer a =context.getTotalCount()-1;
-//        //读取的行数到行尾时，将剩下的数据全部插入到数据库中
-//        if (a==rowCount){
-//	        System.out.println(list);
-//        	Map<String, Integer> addTbClue = clueService.addTbClue(list);
-//        	addMapData(addTbClue);
-//        }
-//        //每当list中存储的条目数达到2000条时，批量插入到数据库中，并清空当前list的数据
-//        if (list.size()%BATCH_COUNT==0){
-//        	Map<String, Integer> addTbClue = clueService.addTbClue(list);
-//        	addMapData(addTbClue);
-//            list.clear();
-//        }
-//	}
-	
+	/**
+	 * 每解析一行数据都要执行一次
+	 * 每条都执行一次插入操作
+	 * @param data
+	 * @param context
+	 */
 	@Override
 	public void invoke(TbClueExcelVo data, AnalysisContext context) {
-		List<TbClueExcelVo> list = new ArrayList<TbClueExcelVo>();
-		list.add(data);
-    	Map<String, Integer> addTbClue = clueService.addTbClue(list);
-    	addMapData(addTbClue);
+		ImportResultDTO addTbClue = clueService.importCluesData(data);
+		resultDTO.addAll(addTbClue);
 	}
-	
-	private void addMapData(Map<String, Integer> addTbClue) {
-		Set<String> keySet = addTbClue.keySet();
-		for (String indexKey : keySet) {
-			Integer totalValue = map.get(indexKey);
-			if(totalValue == null) {
-				totalValue = 0;
-			}
-			Integer thisValue = addTbClue.get(indexKey);
-			if(thisValue == null) {
-				thisValue = 0;
-			}
-			map.put(indexKey, totalValue+thisValue);
-		}
-	}
-	
+
+	/**
+	 * 当所有数据都解析完成后会执行
+	 * @param context
+	 */
 	@Override
 	public void doAfterAllAnalysed(AnalysisContext context) {
 	}
-	
-	public Map<String,Integer> getResultData(){
-		return map;
+
+	/**
+	 * 返回结果集对象
+	 * @return
+	 */
+	public ImportResultDTO getResult(){
+		return resultDTO;
 	}
+
 }

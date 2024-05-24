@@ -1,16 +1,15 @@
 package com.huike.report.domain.vo;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 折线图
  */
-public class LineChartVo {
+public class LineChartVO {
 
     private List<String> xAxis = new ArrayList<>();
-    private List<LineSeriesVo> series = new ArrayList<>();
+    private List<LineSeriesVO> series = new ArrayList<>();
 
     public List<String> getxAxis() {
         return xAxis;
@@ -20,11 +19,12 @@ public class LineChartVo {
         this.xAxis = xAxis;
     }
 
-    public List<LineSeriesVo> getSeries() {
+    public List<LineSeriesVO> getSeries() {
         return series;
     }
 
-    public void setSeries(List<LineSeriesVo> series) {
+    public void setSeries(List<LineSeriesVO> series) {
         this.series = series;
     }
 }
+

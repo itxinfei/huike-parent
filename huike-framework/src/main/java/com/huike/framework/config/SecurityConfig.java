@@ -108,7 +108,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/*.svg",
                         "/*.jpg",
                         "/*.html",
-                        
                         "/**/*.ttf",
                         "/**/*.woff",
                         "/**/*.gif",
@@ -120,17 +119,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.svg",
                         "/**/*.jpg",
                         "/**/*.html",
-                        
-                        
                         "/**/*.css",
                         "/**/*.js"
+                ).permitAll().
+                        antMatchers(
+                        //mybatis复习相关的接口全部放行,同学们可以通过postMan进行测试而不需要进行权限认证
+                        "/review/**",
+                                "/review"
                 ).permitAll()
                 .antMatchers("/common/downloadByMinio**").permitAll()
                 .antMatchers("/profile/**").anonymous()
                 .antMatchers("/common/download**").anonymous()
                 .antMatchers("/common/download/resource**").anonymous()
-                .antMatchers("/swagger-ui.html").anonymous()
-                .antMatchers("/swagger-resources/**").anonymous()
                 .antMatchers("/webjars/**").anonymous()
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()

@@ -13,11 +13,10 @@ import org.apache.ibatis.annotations.Param;
 
  * @date 2021-04-02
  */
-public interface TbClueMapper 
-{
+public interface TbClueMapper {
     /**
      * 查询线索管理
-     * 
+     *
      * @param id 线索管理ID
      * @return 线索管理
      */
@@ -25,14 +24,6 @@ public interface TbClueMapper
 
 
     public List<TbClue>  selectClueByIds(Long[] ids);
-
-
-    public int countAllClues(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
-    
-//    public int countAllCluesForIndex(IndexStatisticsVo indexStatisticsVo);
-
-
-    public int effectiveCluesNums(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
     /**
      * 查询线索管理
@@ -44,13 +35,12 @@ public interface TbClueMapper
 
     /**
      * 查询线索管理列表
-     * 
+     *
      * @param tbClue 线索管理
      * @return 线索管理集合
      */
     public List<TbClue> selectTbClueList(TbClue tbClue);
 
-   // public int countAssignByUser(@Param("userId") Long userId);
 
     public List<TbClue> selectTbClueForReport(TbClue tbClue);
 
@@ -59,7 +49,7 @@ public interface TbClueMapper
 
     /**
      * 新增线索管理
-     * 
+     *
      * @param tbClue 线索管理
      * @return 结果
      */
@@ -67,7 +57,7 @@ public interface TbClueMapper
 
     /**
      * 修改线索管理
-     * 
+     *
      * @param tbClue 线索管理
      * @return 结果
      */
@@ -80,7 +70,7 @@ public interface TbClueMapper
 
     /**
      * 删除线索管理
-     * 
+     *
      * @param id 线索管理ID
      * @return 结果
      */
@@ -88,14 +78,12 @@ public interface TbClueMapper
 
     /**
      * 批量删除线索管理
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     public int deleteTbClueByIds(Long[] ids);
 
-
-    public List<Map<String,Object>> cluesStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
     /**
      * 根据渠道活动统计
@@ -108,16 +96,21 @@ public interface TbClueMapper
     public List<Map<String,Object>> countAllContractByUser(@Param("indexVo")IndexStatisticsVo vo);
 
 
-	public void updateClueEndTimeById(@Param("id")Long id,@Param("endTime") Date endTime);
+    public void updateClueEndTimeById(@Param("id")Long id,@Param("endTime") Date endTime);
 
 
-	public List<Map<String, Object>> countAllClueByUser(@Param("indexVo")IndexStatisticsVo vo);
+    public Map<String, Object> getcontractsBasicInfo(@Param("indexVo")IndexStatisticsVo request,
+                                                     @Param("now")String now,@Param("username")String username);
 
 
-	public Map<String, Object> getcontractsBasicInfo(@Param("indexVo")IndexStatisticsVo request, 
-			@Param("now")String now,@Param("username")String username);
 
-
-	public int removeClueByFalseClue(@Param("id")Long id);
+    /**
+     * 统计线索数量
+     * @param request
+     * @param now
+     * @param username
+     * @return
+     */
+    public int getCluesNum(@Param("indexVo")IndexStatisticsVo request,@Param("now")String now,@Param("username")String username);
 
 }

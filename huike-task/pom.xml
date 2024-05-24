@@ -15,31 +15,13 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    <description>spring Task 定时任务</description>
 
     <dependencies>
-        <!-- 定时任务
-        <dependency>
-	      <groupId>com.xuxueli</groupId>
-	      <artifactId>xxl-job-core</artifactId>
-		</dependency>-->
-
         <!-- 通用工具-->
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.0</version>
         </dependency>
     </dependencies>
 </project>

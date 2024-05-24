@@ -11,18 +11,21 @@
     <packaging>jar</packaging>
     <artifactId>huike-admin</artifactId>
 
-    <description>web服务入口</description>
-
+    <description>
+        web服务入口
+    </description>
 
     <dependencies>
+
         <!-- spring-boot-devtools -->
-        <!-- Mysql驱动包 -->
+
+         <!-- Mysql驱动包 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- 核心模块 -->
+        <!-- 核心模块-->
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-framework</artifactId>
@@ -34,76 +37,36 @@
             </exclusions>
         </dependency>
 
-        <!-- 定时任务 -->
+        <!-- 定时任务-->
         <dependency>
             <groupId>com.huike</groupId>
-            <artifactId>huike-quartz</artifactId>
+            <artifactId>huike-task</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>mybatis</artifactId>
                     <groupId>org.mybatis</groupId>
                 </exclusion>
-                <!-- <exclusion> -->
-                <!-- <artifactId>pagehelper</artifactId> -->
-                <!-- <groupId>com.github.pagehelper</groupId> -->
-                <!-- </exclusion> -->
             </exclusions>
         </dependency>
+
+
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.7</version>
         </dependency>
 
-        <!-- <dependency> -->
-        <!-- <groupId>com.github.pagehelper</groupId> -->
-        <!-- <artifactId>pagehelper</artifactId> -->
-        <!-- <version>5.0.0</version> -->
-        <!-- </dependency> -->
-
-
-        <!-- 代码生成 -->
-        <dependency>
-            <groupId>com.huike</groupId>
-            <artifactId>huike-generator</artifactId>
-        </dependency>
-
-        <!-- 线索管理 -->
+        <!-- 线索管理-->
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-clues</artifactId>
         </dependency>
 
-        <!-- swagger2-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
-        <!--防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本-->
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-        </dependency>
-
-        <!-- swagger2-UI-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-business</artifactId>
@@ -128,6 +91,13 @@
             <version>3.4.0</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.huike</groupId>
+            <artifactId>huike-mybatis-review</artifactId>
+            <version>3.4.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -147,72 +117,17 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
+            <plugin>   
+                <groupId>org.apache.maven.plugins</groupId>   
+                <artifactId>maven-war-plugin</artifactId>   
+                <version>3.1.0</version>   
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${project.artifactId}</warName>
-                </configuration>
-            </plugin>
+                </configuration>   
+           </plugin>   
         </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>
 
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.huike</groupId>
-        <artifactId>huike-business</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>com.huike</groupId>
-        <artifactId>huike-contract</artifactId>
-        <version>3.4.0</version>
-        <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>com.huike</groupId>
-        <artifactId>huike-report</artifactId>
-        <version>3.4.0</version>
-        <scope>compile</scope>
-    </dependency>
-
-</dependencies>
-
-<build>
-<plugins>
-    <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.1.1.RELEASE</version>
-        <configuration>
-            <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-        </configuration>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>repackage</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-            <failOnMissingWebXml>false</failOnMissingWebXml>
-            <warName>${project.artifactId}</warName>
-        </configuration>
-    </plugin>
-</plugins>
-<finalName>${project.artifactId}</finalName>
-</build>
-
-        </project>
+</project>

@@ -7,10 +7,26 @@
     <groupId>com.huike</groupId>
     <artifactId>huike-parent</artifactId>
     <version>3.4.0</version>
+    <packaging>pom</packaging>
 
     <name>huike</name>
     <url>http://www.huike.vip</url>
     <description>会客crm管理系统</description>
+
+
+    <modules>
+        <module>huike-admin</module>
+        <module>huike-framework</module>
+        <module>huike-system</module>
+        <module>huike-common</module>
+        <module>huike-clues</module>
+        <module>huike-business</module>
+        <module>huike-mybatis-review</module>
+        <module>huike-contract</module>
+        <module>huike-report</module>
+        <module>huike-task</module>
+    </modules>
+
 
     <properties>
         <huike.version>3.4.0</huike.version>
@@ -21,7 +37,6 @@
         <druid.version>1.2.4</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>2.9.2</swagger.version>
-        <swagger.model.version>1.5.21</swagger.model.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
         <fastjson.version>1.2.75</fastjson.version>
@@ -34,14 +49,10 @@
         <velocity.version>1.7</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <org.projectlombok.version>1.18.8</org.projectlombok.version>
-        <miniio.version>7.0.2</miniio.version>
+        <miniio.version>8.3.3</miniio.version>
         <esay_excel.version>2.2.6</esay_excel.version>
         <xxl_job.version>2.1.0</xxl_job.version>
-
-        <!--        <activiti-dependencies.version>7.0.0.Beta2</activiti-dependencies.version>-->
-        <mybatis.version>3.5.5</mybatis.version>
-        <mybatis.spring.version>2.0.5</mybatis.spring.version>
-        <mybatis.plus.version>3.4.0</mybatis.plus.version>
+        <okHttp.version>4.9.0</okHttp.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -95,42 +106,6 @@
                 <groupId>net.java.dev.jna</groupId>
                 <artifactId>jna-platform</artifactId>
                 <version>${jna.version}</version>
-            </dependency>
-
-            <!-- swagger2-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.model.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-models</artifactId>
-                <version>${swagger.model.version}</version>
-            </dependency>
-
-            <!-- swagger2-UI-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.version}</version>
             </dependency>
 
             <!--io常用工具类 -->
@@ -196,13 +171,6 @@
             </dependency>
 
 
-            <!-- 代码生成-->
-            <dependency>
-                <groupId>com.huike</groupId>
-                <artifactId>huike-generator</artifactId>
-                <version>${huike.version}</version>
-            </dependency>
-
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.huike</groupId>
@@ -237,7 +205,6 @@
                 <version>${huike.version}</version>
             </dependency>
 
-
             <!--规则-->
 
             <dependency>
@@ -246,15 +213,6 @@
                 <version>2.2.13.RELEASE</version>
                 <scope>test</scope>
             </dependency>
-
-            <!--            <dependency>-->
-            <!--                <groupId>org.activiti.dependencies</groupId>-->
-            <!--                <artifactId>activiti-dependencies</artifactId>-->
-            <!--                <version>${activiti-dependencies.version}</version>-->
-            <!--                <scope>import</scope>-->
-            <!--                <type>pom</type>-->
-            <!--            </dependency>-->
-
 
             <!-- lombok 管理 -->
             <dependency>
@@ -270,46 +228,20 @@
                 <version>${esay_excel.version}</version>
             </dependency>
 
-            <!-- xxl job -->
+            <!--minio -->
             <dependency>
-                <groupId>com.xuxueli</groupId>
-                <artifactId>xxl-job-core</artifactId>
-                <version>${xxl_job.version}</version>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${miniio.version}</version>
             </dependency>
-
+            <!-- okHttp -->
             <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-spring</artifactId>
-                <version>${mybatis.spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis.plus.version}</version>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okHttp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <modules>
-        <module>huike-admin</module>
-        <module>huike-framework</module>
-        <module>huike-system</module>
-        <module>huike-generator</module>
-        <module>huike-common</module>
-        <module>huike-clues</module>
-        <module>huike-business</module>
-        <module>huike-contract</module>
-        <module>huike-report</module>
-        <module>huike-task</module>
-        <module>huike-quartz</module>
-    </modules>
-    <packaging>pom</packaging>
-
 
     <build>
         <extensions>
@@ -332,15 +264,7 @@
                 </configuration>
             </plugin>
 
-            <!--            <plugin>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--                <configuration>-->
-            <!--                    <fork>true</fork>&lt;!&ndash;热部署必须添加这个配置&ndash;&gt;-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
-
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>wagon-maven-plugin</artifactId>
                 <version>1.0</version>
@@ -358,18 +282,16 @@
                 </dependencies>
                 <configuration>
                     <serverId>huike</serverId>
-                    <fromFile>F:/crm/huike-parent/huike-admin/target/huike-admin.jar</fromFile>
+                    <fromFile>/huike-parent/huike-admin/target/huike-admin.jar</fromFile>
                     <url>scp://172.17.2.65/root/soft/</url>
                     <commands>
                         <command>sh /root/soft/jk.sh</command>
                     </commands>
-                    <!-- 显示运行命令的输出结果 -->
+                    &lt;!&ndash; 显示运行命令的输出结果 &ndash;&gt;
                     <displayCommandOutputs>true</displayCommandOutputs>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
-
-
     </build>
 
     <repositories>
@@ -406,6 +328,5 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 
 </project>

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * 商机Mapper接口
+ *
  * @date 2021-04-25
  */
 public interface TbBusinessMapper {
@@ -68,6 +69,7 @@ public interface TbBusinessMapper {
 
     /**
      * 重新分配商机的状态
+     *
      * @param id
      * @param status
      * @return
@@ -77,10 +79,11 @@ public interface TbBusinessMapper {
 
     public int setTransfer(@Param("id") Long id, @Param("status") String status);
 
-    public void updateBusinessEndTimeById(@Param("id")Long id, @Param("endTime")Date endTime);
+    public void updateBusinessEndTimeById(@Param("id") Long id, @Param("endTime") Date endTime);
 
     /**
      * 统计商机数
+     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
@@ -89,6 +92,7 @@ public interface TbBusinessMapper {
 
     /**
      * 统计商机
+     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
@@ -96,13 +100,12 @@ public interface TbBusinessMapper {
     public int countAllBusiness(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
     /**
-     *统计职员签约合同数
+     * 统计职员签约合同数
+     *
      * @param request
      * @return
      */
-    public List<Map<String,Object>> countAllContractByUser(@Param("indexVo") IndexStatisticsVo request);
-
-
+    public List<Map<String, Object>> countAllContractByUser(@Param("indexVo") IndexStatisticsVo request);
 
 
 }

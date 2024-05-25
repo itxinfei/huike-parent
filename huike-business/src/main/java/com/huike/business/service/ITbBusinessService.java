@@ -7,15 +7,14 @@ import com.huike.business.domain.TbBusiness;
 
 /**
  * 商机Service接口
- * 
+ *
  * @author wgl
  * @date 2021-04-25
  */
-public interface ITbBusinessService 
-{
+public interface ITbBusinessService {
     /**
      * 查询商机
-     * 
+     *
      * @param id 商机ID
      * @return 商机
      */
@@ -23,19 +22,18 @@ public interface ITbBusinessService
 
     /**
      * 查询商机列表
-     * 
+     *
      * @param tbBusiness 商机
      * @return 商机集合
      */
     public List<TbBusiness> selectTbBusinessList(TbBusiness tbBusiness);
 
 
-
     public List<TbBusiness> selectTbBusinessPool(TbBusiness tbBusiness);
 
     /**
      * 新增商机
-     * 
+     *
      * @param tbBusiness 商机
      * @return 结果
      */
@@ -43,7 +41,7 @@ public interface ITbBusinessService
 
     /**
      * 修改商机
-     * 
+     *
      * @param tbBusiness 商机
      * @return 结果
      */
@@ -51,7 +49,7 @@ public interface ITbBusinessService
 
     /**
      * 批量删除商机
-     * 
+     *
      * @param ids 需要删除的商机ID
      * @return 结果
      */
@@ -59,7 +57,7 @@ public interface ITbBusinessService
 
     /**
      * 删除商机信息
-     * 
+     *
      * @param id 商机ID
      * @return 结果
      */
@@ -76,10 +74,11 @@ public interface ITbBusinessService
 
     /**
      * 退回公海
+     *
      * @param businessId
      * @param reason
      * @return
      */
-    public int backPool(Long businessId,String reason);
+    public int backPool(Long businessId, String reason);
 
 }

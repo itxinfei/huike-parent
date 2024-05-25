@@ -18,23 +18,22 @@ import com.huike.common.enums.BusinessType;
 
 /**
  * 线索池规则Controller
+ *
  * @date 2021-04-16
  */
 @RestController
 @RequestMapping("/rule/pool")
-public class TbRulePoolController extends BaseController
-{
+public class TbRulePoolController extends BaseController {
     @Autowired
     private ITbRulePoolService tbRulePoolService;
 
     /**
      * 查询线索池规则列表
      */
-   // @PreAuthorize("@ss.hasPermi('clues:pool:list')")
+    // @PreAuthorize("@ss.hasPermi('clues:pool:list')")
     //@ApiOperation("获取基础信息type=0 线索 type=1 商机")
     @GetMapping("/{type}")
-    public AjaxResult getInfo(@PathVariable("type") String type)
-    {
+    public AjaxResult getInfo(@PathVariable("type") String type) {
 
         return AjaxResult.success(tbRulePoolService.selectTbRulePoolByType(type));
     }
@@ -47,8 +46,7 @@ public class TbRulePoolController extends BaseController
     //@PreAuthorize("@ss.hasPermi('clues:pool:add')")
     @Log(title = "线索池规则", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody TbRulePool tbRulePool)
-    {
+    public AjaxResult add(@RequestBody TbRulePool tbRulePool) {
         return toAjax(tbRulePoolService.insertTbRulePool(tbRulePool));
     }
 
@@ -59,8 +57,7 @@ public class TbRulePoolController extends BaseController
     //@PreAuthorize("@ss.hasPermi('clues:pool:edit')")
     @Log(title = "线索池规则", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody TbRulePool tbRulePool)
-    {
+    public AjaxResult edit(@RequestBody TbRulePool tbRulePool) {
         return toAjax(tbRulePoolService.updateTbRulePool(tbRulePool));
     }
 

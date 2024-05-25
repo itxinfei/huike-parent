@@ -27,17 +27,17 @@ import com.huike.contract.service.ITbContractService;
  */
 @RestController
 @RequestMapping("/contract")
-public class TbContractController extends BaseController
-{
+public class TbContractController extends BaseController {
     @Autowired
     private ITbContractService tbContractService;
-    
+
     @Autowired
     private ITbClueService tbClueService;
 
 
     /**
      * 商机转合同
+     *
      * @param id
      * @param tbContract
      * @return
@@ -45,8 +45,8 @@ public class TbContractController extends BaseController
     @PreAuthorize("@ss.hasPermi('contract:contract:change')")
     @Log(title = "商机转合同", businessType = BusinessType.UPDATE)
     @PutMapping("/changeContract/{id}")
-    public AjaxResult changeContract(@PathVariable Long id, @RequestBody TbContract tbContract){
-        return toAjax(tbContractService.changeContract(id,tbContract));
+    public AjaxResult changeContract(@PathVariable Long id, @RequestBody TbContract tbContract) {
+        return toAjax(tbContractService.changeContract(id, tbContract));
     }
 
     /**
@@ -54,11 +54,10 @@ public class TbContractController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('contract:contract:list')")
     @GetMapping("/list")
-    public TableDataInfo list(TbContract tbContract){
-    	List<TbContract> contractList = tbContractService.selectTbContract(tbContract);
+    public TableDataInfo list(TbContract tbContract) {
+        List<TbContract> contractList = tbContractService.selectTbContract(tbContract);
         return getDataTablePage(contractList);
     }
-
 
 
     /**
@@ -66,14 +65,13 @@ public class TbContractController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('contract:contract:detail')")
     @GetMapping(value = "/detail/{id}")
-    public AjaxResult detail(@PathVariable("id") Long id)
-    {
+    public AjaxResult detail(@PathVariable("id") Long id) {
         return AjaxResult.success(tbContractService.selectTbContractById(id));
     }
-    
+
     @PreAuthorize("@ss.hasPermi('contract:contract:detail')")
     @GetMapping(value = "/{id}")
-    public AjaxResult detailById(@PathVariable("id") Long id){
+    public AjaxResult detailById(@PathVariable("id") Long id) {
         return AjaxResult.success(tbContractService.selectTbContractById(id));
     }
 
@@ -85,11 +83,10 @@ public class TbContractController extends BaseController
     @PreAuthorize("@ss.hasPermi('contract:contract:add')")
     @Log(title = "合同", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody TbContract tbContract){
-    	if(!tbClueService.checkCluePhoneExis(tbContract.getPhone())) return error("手机号已存在");
+    public AjaxResult add(@RequestBody TbContract tbContract) {
+        if (!tbClueService.checkCluePhoneExis(tbContract.getPhone())) return error("手机号已存在");
         return toAjax(tbContractService.insertTbContract(tbContract));
     }
-
 
 
     /**
@@ -99,8 +96,7 @@ public class TbContractController extends BaseController
     @PreAuthorize("@ss.hasPermi('contract:contract:edit')")
     @Log(title = "合同", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody TbContract tbContract)
-    {
+    public AjaxResult edit(@RequestBody TbContract tbContract) {
         return toAjax(tbContractService.updateTbContract(tbContract));
     }
 

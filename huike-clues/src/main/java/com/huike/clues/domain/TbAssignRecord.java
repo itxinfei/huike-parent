@@ -7,51 +7,39 @@ import com.huike.common.core.domain.BaseEntity;
 
 /**
  * 线索分配记录对象 tb_assign_record
- *
  * @date 2021-04-19
  */
-public class TbAssignRecord extends BaseEntity {
+public class TbAssignRecord extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键id
-     */
+    /** 主键id */
     private Long id;
 
-    /**
-     * id
-     */
+    /** id */
     @Excel(name = "assign_id")
     private Long assignId;
 
-    /**
-     * 所属人用户id
-     */
+    /** 所属人用户id */
     @Excel(name = "所属人用户id")
     private Long userId;
 
-    /**
-     * 所属人名称
-     */
+    /** 所属人名称 */
     @Excel(name = "所属人名称")
     private String userName;
 
-    /**
-     * 所属人所属组织
-     */
+    /** 所属人所属组织 */
     @Excel(name = "所属人所属组织")
     private Long deptId;
 
-    /**
-     * 是否当前最新分配人
-     */
+    /** 是否当前最新分配人 */
     @Excel(name = "是否当前最新分配人")
     private String latest;
 
     @Excel(name = "类型0 线索 1 商机")
-    private String type = "0";
+    private String type="0";
 
-    // private String status;
+   // private String status;
 
 //    public String getStatus() {
 //        return status;
@@ -61,11 +49,13 @@ public class TbAssignRecord extends BaseEntity {
 //        this.status = status;
 //    }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
 
@@ -77,49 +67,65 @@ public class TbAssignRecord extends BaseEntity {
         this.assignId = assignId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Long userId)
+    {
         this.userId = userId;
     }
 
-    public Long getUserId() {
+    public Long getUserId() 
+    {
         return userId;
     }
-
-    public void setUserName(String userName) {
+    public void setUserName(String userName) 
+    {
         this.userName = userName;
     }
 
-    public String getUserName() {
+    public String getUserName() 
+    {
         return userName;
     }
-
-    public void setDeptId(Long deptId) {
+    public void setDeptId(Long deptId) 
+    {
         this.deptId = deptId;
     }
 
-    public Long getDeptId() {
+    public Long getDeptId() 
+    {
         return deptId;
     }
-
-    public void setLatest(String latest) {
+    public void setLatest(String latest) 
+    {
         this.latest = latest;
     }
 
-    public String getLatest() {
+    public String getLatest() 
+    {
         return latest;
     }
-
-    public void setType(String type) {
+    public void setType(String type) 
+    {
         this.type = type;
     }
 
-    public String getType() {
+    public String getType() 
+    {
         return type;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", getId()).append("assignId", getAssignId()).append("userId", getUserId()).append("userName", getUserName()).append("deptId", getDeptId()).append("createTime", getCreateTime()).append("createBy", getCreateBy()).append("latest", getLatest()).append("type", getType()).toString();
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("id", getId())
+            .append("assignId", getAssignId())
+            .append("userId", getUserId())
+            .append("userName", getUserName())
+            .append("deptId", getDeptId())
+            .append("createTime", getCreateTime())
+            .append("createBy", getCreateBy())
+            .append("latest", getLatest())
+            .append("type", getType())
+            .toString();
     }
 
     public enum RecordType {
@@ -136,11 +142,13 @@ public class TbAssignRecord extends BaseEntity {
 
         private String value;
 
-        private RecordType(String value) {
+        private RecordType(String value)
+        {
             this.value = value;
         }
 
-        public String getValue() {
+        public String getValue()
+        {
             return value;
         }
     }

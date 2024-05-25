@@ -2,8 +2,11 @@ package com.huike.common.constant;
 
 /**
  * 通用常量信息
+ * 
+ * 
  */
-public class Constants {
+public class Constants
+{
     /**
      * UTF-8 字符集
      */
@@ -58,7 +61,7 @@ public class Constants {
      * 登录用户 redis key
      */
     public static final String LOGIN_TOKEN_KEY = "login_tokens:";
-
+    
     /**
      * 防重提交 redis key
      */
@@ -128,8 +131,8 @@ public class Constants {
     public static final String RESOURCE_PREFIX = "/profile";
 
     //线索
-    public static final String rule_type_clue = "0";
+    public static  final String rule_type_clue="0";
 
     //商机
-    public static final String rule_type_business = "1";
+    public static  final String rule_type_business="1";
 }

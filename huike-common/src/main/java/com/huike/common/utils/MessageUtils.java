@@ -6,6 +6,8 @@ import com.huike.common.utils.spring.SpringUtils;
 
 /**
  * 获取i18n资源文件
+ * 
+ * 
  */
 public class MessageUtils {
     /**

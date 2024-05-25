@@ -2,8 +2,12 @@ package com.huike.common.enums;
 
 /**
  * 操作状态
+ * 
+ * 
+ *
  */
-public enum BusinessStatus {
+public enum BusinessStatus
+{
     /**
      * 成功
      */

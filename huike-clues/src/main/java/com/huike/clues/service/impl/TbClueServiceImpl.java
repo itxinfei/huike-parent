@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.huike.clues.domain.dto.ImportResultDTO;
+import com.huike.clues.mapper.*;
 import com.huike.clues.strategy.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,6 @@ import com.huike.clues.domain.TbClue;
 import com.huike.clues.domain.TbClueTrackRecord;
 import com.huike.clues.domain.TbRulePool;
 import com.huike.clues.domain.vo.TbClueExcelVo;
-import com.huike.clues.mapper.SysDictDataMapper;
-import com.huike.clues.mapper.SysUserMapper;
-import com.huike.clues.mapper.TbActivityMapper;
-import com.huike.clues.mapper.TbAssignRecordMapper;
-import com.huike.clues.mapper.TbClueMapper;
 import com.huike.clues.service.ITbActivityService;
 import com.huike.clues.service.ITbClueService;
 import com.huike.clues.service.ITbRulePoolService;
@@ -72,6 +68,9 @@ public class TbClueServiceImpl implements ITbClueService {
 
 	@Autowired
 	private ITbClueService tbClueService;
+
+	@Autowired
+	TbClueTrackRecordMapper tbClueTrackRecordMapper;
 
 	/**
 	 * 查询线索管理
@@ -294,7 +293,8 @@ public class TbClueServiceImpl implements ITbClueService {
 		// 统计当前分配人所有线索
 		int asignRecords = assignRecordMapper.countAssignCluesByUser(userId);
 		if (asignRecords >= rulePool.getMaxNunmber()) {
-			throw new CustomException("捞取失败！最大保有量(" + rulePool.getMaxNunmber() + ")，剩余可以捞取"+(rulePool.getMaxNunmber()-asignRecords)+"条线索");
+			//throw new CustomException("捞取失败！最大保有量(" + rulePool.getMaxNunmber() + ")，剩余可以捞取"+(rulePool.getMaxNunmber()-asignRecords)+"条线索");
+			throw new CustomException("捞取失败！最大保有量(" + rulePool.getMaxNunmber() + ")，剩余可以捞取0条线索");
 		}
 		for (int i = 0; i < clueIds.length; i++) {
 			Long clueId = clueIds[i];
@@ -401,47 +401,155 @@ public class TbClueServiceImpl implements ITbClueService {
 	@Override
 	public ImportResultDTO importCluesData(TbClueExcelVo data) {
 		//===============校验线索数据，封装属性，插入数据库，根据规则进行分配======================
+
+		TbClue clue = new TbClue();
+		BeanUtils.copyProperties(data, clue);
+		clue.setCreateBy(SecurityUtils.getUsername());
+		clue.setCreateTime(DateUtils.getNowDate());
+		String activityCode = data.getActivityCode();
+
 		/**
 		 * 1 判断活动编号对应的活动是否存在
 		 * 1.1 如果活动编号不存在 即错误数据，不进行添加操作，返回错误 ImportResultDTO.error()
 		 * 1.2 如果活动编号存在 设置活动id
 		 */
 		//TODO 补全上述逻辑代码
-		/**
-		 * 校验手机号和渠道是否为空
-		 * 如果为空证明是错误数据，不进行添加 返回error
-		 * return ImportResultDTO.error();
-		 */
-		//TODO 补全上述逻辑代码
-		/**
-		 * 字典值的替换
-		 * 因为excel里传入的是中文名，需要替换成对应的字典值
-		 * 需要处理 学科 性别 意向级别
-		 */
-		//TODO 补全上述逻辑代码
-		/**
-		 * 设置数据状态为待跟进
-		 * clue.setStatus(TbClue.StatusType.UNFOLLOWED.getValue());
-		 */
-		//TODO 补全上述逻辑代码
-		/**
-		 * 将线索数据入库
-		 * 参考添加线索接口调用的mapper
-		 * 仅仅只插入到线索表中
- 		 */
-		//TODO 补全上述逻辑代码
-		/**
-		 * 根据规则动态分配线索给具体的销售人员
-		 * 利用策略模式来进行实现
-		 * rule.loadRule(clue);
-		 */
-		//TODO 补全上述逻辑代码
+
+		if (StringUtils.isNoneBlank(activityCode)) {
+			TbActivity activity = activityService.selectTbActivityByCode(activityCode);
+			if (activity != null) {
+				clue.setActivityId(activity.getId());
+			}
+		}
+		try {
+			if (StringUtils.isBlank(clue.getPhone())) {
+				return ImportResultDTO.error();
+			}
+			if (StringUtils.isBlank(clue.getChannel())) {
+				return ImportResultDTO.error();
+			}
+			// 验证是否存在这个用户
+
+			/**
+			 * 校验手机号和渠道是否为空
+			 * 如果为空证明是错误数据，不进行添加 返回error
+			 * return ImportResultDTO.error();
+			 */
+			//TODO 补全上述逻辑代码
+
+			TbClue dbcule = tbClueMapper.selectTbClueByPhone(clue.getPhone());
+			if (dbcule == null) {
+				// 特殊字段处理
+
+				/**
+				 * 字典值的替换
+				 * 因为excel里传入的是中文名，需要替换成对应的字典值
+				 * 需要处理 学科 性别 意向级别
+				 */
+				//TODO 补全上述逻辑代码
+
+				String channel = sysDictDataMapper.selectDictValue(TbClue.ImportDictType.CHANNEL.getDictType(),
+						clue.getChannel());
+				clue.setChannel(channel);
+
+				if (StringUtils.isNoneBlank(clue.getSubject())) {
+					String subject = sysDictDataMapper.selectDictValue(TbClue.ImportDictType.SUBJECT.getDictType(),
+							clue.getSubject());
+					clue.setSubject(subject);
+				}
+
+				if (StringUtils.isNoneBlank(clue.getLevel())) {
+					String level = sysDictDataMapper.selectDictValue(TbClue.ImportDictType.LEVEL.getDictType(),
+							clue.getLevel());
+					clue.setLevel(level);
+				}
+
+				if (StringUtils.isNoneBlank(clue.getSex())) {
+					String sex = sysDictDataMapper.selectDictValue(TbClue.ImportDictType.SEX.getDictType(),
+							clue.getSex());
+					clue.setSex(sex);
+				}
+
+				if (StringUtils.isNoneBlank(clue.getActivityName())) {
+					String sex = sysDictDataMapper.selectDictValue(TbClue.ImportDictType.SEX.getDictType(),
+							clue.getSex());
+					clue.setSex(sex);
+				}
+
+				/**
+				 * 设置数据状态为待跟进
+				 * clue.setStatus(TbClue.StatusType.UNFOLLOWED.getValue());
+				 */
+				//TODO 补全上述逻辑代码
+
+				clue.setStatus(TbClue.StatusType.UNFOLLOWED.getValue());
+
+				/**
+				 * 将线索数据入库
+				 * 参考添加线索接口调用的mapper
+				 * 仅仅只插入到线索表中
+				 */
+				//TODO 补全上述逻辑代码
+
+				tbClueMapper.insertTbClue(clue);
+				// 默认分配超级管理员
+				//如果线索添加成功，利用策略将线索分配给具体的人
+
+				/**
+				 * 根据规则动态分配线索给具体的销售人员
+				 * 利用策略模式来进行实现
+				 * rule.loadRule(clue);
+				 */
+				//TODO 补全上述逻辑代码
+
+				rule.loadRule(clue);
+			} else {
+				return ImportResultDTO.error();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 
 		/**
 		 *分配完成 返回成功
 		 * 这个方法免费提供
 		 */
-		return ImportResultDTO.success();
 
+		return ImportResultDTO.success();
 	}
+
+	/**
+	 * 伪线索
+	 * @param id
+	 * @param reason
+	 * @param remark
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public int falseClue(Long id, String reason, String remark) {
+		TbClue tbClue = tbClueMapper.selectTbClueById(id);
+		int falseCount = tbClue.getFalseCount();
+		// 上报超过三次删除
+		if (falseCount >= 2) {
+			// 删除这条线索
+			return tbClueMapper.removeClueByFalseClue(id);
+		}
+		// 少于三次入线索池
+		tbClue.setFalseCount(tbClue.getFalseCount() + 1);
+		tbClue.setStatus(TbClue.StatusType.FALSE.getValue());
+		updateTbClue(tbClue);
+		updateStatus(tbClue.getId(), TbClue.StatusType.FALSE.getValue());
+		// 伪线索原因
+		TbClueTrackRecord trackRecord = new TbClueTrackRecord();
+		trackRecord.setCreateBy(SecurityUtils.getUsername());
+		trackRecord.setFalseReason(reason);
+		trackRecord.setRecord(remark);
+		trackRecord.setClueId(id);
+		trackRecord.setType("1");
+		trackRecord.setCreateTime(DateUtils.getNowDate());
+		return tbClueTrackRecordMapper.insertTbClueTrackRecord(trackRecord);
+	}
+
 }

@@ -8,7 +8,7 @@
         <version>3.4.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>合同</description>
+
     <artifactId>huike-contract</artifactId>
 
     <properties>
@@ -46,12 +46,6 @@
         <dependency>
             <groupId>com.huike</groupId>
             <artifactId>huike-business</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.huike</groupId>
-            <artifactId>huike-report</artifactId>
-            <version>3.4.0</version>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>

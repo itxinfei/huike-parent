@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.huike.report.domain.vo.LineChartVO;
+import com.huike.report.domain.vo.VulnerabilityMapVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +20,7 @@ import com.huike.contract.domain.TbContract;
 import com.huike.report.domain.vo.ActivityStatisticsVo;
 import com.huike.report.service.IReportService;
 
-/**
- *
- */
+
 @RestController
 @RequestMapping("/report")
 public class ReportController extends BaseController {
@@ -31,149 +30,123 @@ public class ReportController extends BaseController {
 
     /**
      * 客户统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/contractStatistics/{beginCreateTime}/{endCreateTime}")
-    public LineChartVO contractStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
-        return reportService.contractStatistics(beginCreateTime, endCreateTime);
+    public LineChartVO contractStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
+        return reportService.contractStatistics(beginCreateTime,endCreateTime);
     }
 
     /**
      * 销售统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/salesStatistics/{beginCreateTime}/{endCreateTime}")
-    public LineChartVO salesStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
-        return reportService.salesStatistics(beginCreateTime, endCreateTime);
+    public LineChartVO salesStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
+        return reportService.salesStatistics(beginCreateTime,endCreateTime);
     }
+
+
 
     /**
      * 渠道统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/chanelStatistics/{beginCreateTime}/{endCreateTime}")
-    public AjaxResult chanelStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
-        return AjaxResult.success(reportService.chanelStatistics(beginCreateTime, endCreateTime));
+    public AjaxResult chanelStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
+        return AjaxResult.success(reportService.chanelStatistics(beginCreateTime,endCreateTime));
     }
+
 
     /**
      * 活动统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/activityStatistics/{beginCreateTime}/{endCreateTime}")
-    public AjaxResult activityStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
-        return AjaxResult.success(reportService.activityStatistics(beginCreateTime, endCreateTime));
+    public AjaxResult activityStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
+        return AjaxResult.success(reportService.activityStatistics(beginCreateTime,endCreateTime));
     }
 
     /**
      * 查询活动管理列表
      */
     @GetMapping("/contractStatisticsList")
-    public TableDataInfo contractStatisticsList(TbContract contract) {
+    public TableDataInfo contractStatisticsList(TbContract contract){
         startPage();
-        List<TbContract> list = reportService.contractReportList(contract);
+        List<TbContract> list= reportService.contractReportList(contract);
         return getDataTable(list);
     }
 
+
     /**
      * 销售统计部门报表
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/deptStatisticsList/{beginCreateTime}/{endCreateTime}")
-    public TableDataInfo deptStatisticsList(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
+    public TableDataInfo deptStatisticsList(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
         startPage();
-        List<Map<String, Object>> list = reportService.deptStatisticsList(beginCreateTime, endCreateTime);
+        List<Map<String, Object>> list= reportService.deptStatisticsList(beginCreateTime,endCreateTime);
         return getDataTablePage(list);
     }
 
     /**
      * 销售统计渠道报表
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/channelStatisticsList/{beginCreateTime}/{endCreateTime}")
-    public TableDataInfo channelStatisticsList(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
+    public TableDataInfo channelStatisticsList(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
         startPage();
-        List<Map<String, Object>> list = reportService.channelStatisticsList(beginCreateTime, endCreateTime);
+        List<Map<String, Object>> list= reportService.channelStatisticsList(beginCreateTime,endCreateTime);
         return getDataTablePage(list);
     }
 
     /**
      * 销售统计归属人报表
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
     @GetMapping("/ownerShipStatisticsList/{beginCreateTime}/{endCreateTime}")
-    public TableDataInfo ownerShipStatisticsList(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
+    public TableDataInfo ownerShipStatisticsList(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
         startPage();
-        List<Map<String, Object>> list = reportService.ownerShipStatisticsList(beginCreateTime, endCreateTime);
+        List<Map<String, Object>> list = reportService.ownerShipStatisticsList(beginCreateTime,endCreateTime);
         return getDataTablePage(list);
     }
 
+
     /**
      * 线索统计报表
-     *
      * @param clue
      * @return
      */
     @GetMapping("/cluesStatisticsList")
-    public TableDataInfo cluesStatisticsList(TbClue clue) {
+    public TableDataInfo cluesStatisticsList(TbClue clue){
         startPage();
-        List<TbClue> list = reportService.cluesStatisticsList(clue);
+        List<TbClue> list= reportService.cluesStatisticsList(clue);
         return getDataTable(list);
     }
 
     /**
      * 活动渠道统计
-     *
      * @param activity
      * @return
      */
     @GetMapping("/activityStatisticsList")
     public TableDataInfo activityStatisticsList(TbActivity activity) {
-        List<ActivityStatisticsVo> list = reportService.activityStatisticsList(activity);
+        List<ActivityStatisticsVo> list= reportService.activityStatisticsList(activity);
         return getDataTablePage(list);
-    }
-
-    /**
-     * 线索转化率漏斗图
-     *
-     * @param beginCreateTime 开始时间
-     * @param endCreateTime   结束时间
-     * @return
-     */
-    //http://localhost/dev-api/report/getVulnerabilityMap/2022-09-27/2022-10-04
-    @GetMapping("/getVulnerabilityMap/{beginCreateTime}/{endCreateTime}")
-    public AjaxResult getVulnerabilityMap(@PathVariable String beginCreateTime, @PathVariable String endCreateTime) {
-        return AjaxResult.success(reportService.getVulnerabilityMap(beginCreateTime, endCreateTime));
-    }
-    /**
-     * 学科客户分布饼图
-     * @return
-     */
-    @GetMapping("/subjectStatistics/{beginCreateTime}/{endCreateTime}")
-    public AjaxResult subjectStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
-
-        return AjaxResult.success(reportService.subjectStatistics(beginCreateTime,endCreateTime));
     }
 
     /**
@@ -185,6 +158,29 @@ public class ReportController extends BaseController {
     @GetMapping("/cluesStatistics/{beginCreateTime}/{endCreateTime}")
     public LineChartVO cluesStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
         return reportService.cluesStatistics(beginCreateTime,endCreateTime);
+    }
+
+    /**
+     * 学科分布统计
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    @GetMapping("/subjectStatistics/{beginCreateTime}/{endCreateTime}")
+    public AjaxResult subjectStatistics(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
+        return AjaxResult.success(reportService.subjectStatistics(beginCreateTime,endCreateTime));
+    }
+
+    /**
+     * 漏斗图数据
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    @GetMapping("/getVulnerabilityMap/{beginCreateTime}/{endCreateTime}")
+    public AjaxResult getVulnerabilityMap(@PathVariable String beginCreateTime, @PathVariable String endCreateTime){
+        VulnerabilityMapVo vulnerabilityMapDTO= reportService.getVulnerabilityMap(beginCreateTime,endCreateTime);
+        return AjaxResult.success(vulnerabilityMapDTO);
     }
 
 }

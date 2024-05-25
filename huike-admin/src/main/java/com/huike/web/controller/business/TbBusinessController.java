@@ -28,7 +28,6 @@ import com.huike.common.utils.StringUtils;
 
 /**
  * 商机Controller
- *
  * @date 2021-04-25
  */
 @RestController
@@ -37,7 +36,7 @@ public class TbBusinessController extends BaseController {
 
     @Autowired
     private ITbBusinessService tbBusinessService;
-
+    
     @Autowired
     private ITbClueService tbClueService;
 
@@ -46,11 +45,12 @@ public class TbBusinessController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('business:business:list')")
     @GetMapping("/list")
-    public TableDataInfo list(TbBusiness tbBusiness, HttpServletRequest req) {
-
-        if ((!StringUtils.isEmpty(req.getParameter("params[beginCreateTime]"))) && (!StringUtils.isEmpty(req.getParameter("params[endCreateTime]")))) {
-            tbBusiness.setBeginCreateTime(req.getParameter("params[beginCreateTime]"));
-            tbBusiness.setEndCreateTime(req.getParameter("params[endCreateTime]"));
+    public TableDataInfo list(TbBusiness tbBusiness,HttpServletRequest req){
+    	
+    	if((!StringUtils.isEmpty(req.getParameter("params[beginCreateTime]")))&&
+        		(!StringUtils.isEmpty(req.getParameter("params[endCreateTime]")))) {
+        	tbBusiness.setBeginCreateTime(req.getParameter("params[beginCreateTime]"));
+        	tbBusiness.setEndCreateTime(req.getParameter("params[endCreateTime]"));
         }
         List<TbBusiness> list = tbBusinessService.selectTbBusinessList(tbBusiness);
         return getDataTablePage(list);
@@ -58,16 +58,17 @@ public class TbBusinessController extends BaseController {
 
 
     /**
-     * 查询公海池
+     *查询公海池
      */
     @PreAuthorize("@ss.hasPermi('business:business:pool')")
     @GetMapping("/pool")
-    public TableDataInfo pool(TbBusiness tbBusiness, HttpServletRequest req) {
-
+    public TableDataInfo pool(TbBusiness tbBusiness,HttpServletRequest req){
+    	
         startPage();
-        if ((!StringUtils.isEmpty(req.getParameter("params[beginCreateTime]"))) && (!StringUtils.isEmpty(req.getParameter("params[endCreateTime]")))) {
-            tbBusiness.setBeginCreateTime(req.getParameter("params[beginCreateTime]"));
-            tbBusiness.setEndCreateTime(req.getParameter("params[endCreateTime]"));
+        if((!StringUtils.isEmpty(req.getParameter("params[beginCreateTime]")))&&
+        		(!StringUtils.isEmpty(req.getParameter("params[endCreateTime]")))) {
+        	tbBusiness.setBeginCreateTime(req.getParameter("params[beginCreateTime]"));
+        	tbBusiness.setEndCreateTime(req.getParameter("params[endCreateTime]"));
         }
         List<TbBusiness> list = tbBusinessService.selectTbBusinessPool(tbBusiness);
         return getDataTable(list);
@@ -79,7 +80,8 @@ public class TbBusinessController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('business:business:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
+    public AjaxResult getInfo(@PathVariable("id") Long id)
+    {
         return AjaxResult.success(tbBusinessService.selectTbBusinessById(id));
     }
 
@@ -89,8 +91,9 @@ public class TbBusinessController extends BaseController {
     @PreAuthorize("@ss.hasPermi('business:business:add')")
     @Log(title = "商机", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody TbBusiness tbBusiness) {
-        if (!tbClueService.checkCluePhoneExis(tbBusiness.getPhone())) return error("手机号已存在");
+    public AjaxResult add(@RequestBody TbBusiness tbBusiness)
+    {
+    	if(!tbClueService.checkCluePhoneExis(tbBusiness.getPhone())) return error("手机号已存在");
         return toAjax(tbBusinessService.insertTbBusiness(tbBusiness));
     }
 
@@ -100,7 +103,8 @@ public class TbBusinessController extends BaseController {
     @PreAuthorize("@ss.hasPermi('business:business:edit')")
     @Log(title = "商机", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody TbBusiness tbBusiness) {
+    public AjaxResult edit(@RequestBody TbBusiness tbBusiness)
+    {
         return toAjax(tbBusinessService.updateTbBusiness(tbBusiness));
     }
 
@@ -109,8 +113,9 @@ public class TbBusinessController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('business:business:remove')")
     @Log(title = "商机", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
+	@DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids)
+    {
         return toAjax(tbBusinessService.deleteTbBusinessByIds(ids));
     }
 
@@ -120,19 +125,34 @@ public class TbBusinessController extends BaseController {
     @PreAuthorize("@ss.hasPermi('business:business:assignment')")
     @Log(title = "批量分配", businessType = BusinessType.UPDATE)
     @PutMapping("/assignment")
-    public AjaxResult assignment(@RequestBody AssignmentVo assignmentVo) {
-        return AjaxResult.success(tbBusinessService.assign(assignmentVo.getIds(), assignmentVo.getUserId()));
+    public AjaxResult assignment(@RequestBody AssignmentVo assignmentVo)
+    {
+        return AjaxResult.success(tbBusinessService.assign(assignmentVo.getIds(),assignmentVo.getUserId()));
     }
 
     /**
      * 批量捞取
      */
-    @PreAuthorize("@ss.hasPermi('business:business:gainbussiness')")
+    //@PreAuthorize("@ss.hasPermi('business:business:gainbussiness')")
+    @PreAuthorize("@ss.hasPermi('business:business:gain')")
     @Log(title = "批量捞取", businessType = BusinessType.UPDATE)
     @PutMapping("/gain")
     public AjaxResult gain(@RequestBody AssignmentVo assignmentVo) {
-        return AjaxResult.success(tbBusinessService.gain(assignmentVo.getIds(), assignmentVo.getUserId()));
+        return AjaxResult.success(tbBusinessService.gain(assignmentVo.getIds(),assignmentVo.getUserId()));
     }
 
+    /**
+     * 退回公海
+     * @param id
+     * @param reason
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('business:business:back')")
+    @Log(title = "退回公海", businessType = BusinessType.UPDATE)
+    @PutMapping("/back/{id}/{reason}")
+    public AjaxResult back(@PathVariable("id") Long id, @PathVariable("reason")String reason)
+    {
+        return AjaxResult.success(tbBusinessService.backPool(id,reason));
+    }
 
 }

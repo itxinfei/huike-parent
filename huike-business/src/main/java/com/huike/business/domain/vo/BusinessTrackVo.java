@@ -9,123 +9,77 @@ public class BusinessTrackVo {
 
     private Long businessId;
 
-    /**
-     * 客户姓名
-     */
+    /** 客户姓名 */
     private String name;
 
-    /**
-     * 手机号
-     */
+    /** 手机号 */
     private String phone;
 
-    /**
-     * 渠道
-     */
+    /** 渠道 */
     private Long channelId;
 
-    /**
-     * 活动id
-     */
+    /** 活动id */
     private Long activityId;
 
-    /**
-     * 省
-     */
+    /** 省 */
     @Excel(name = "省")
     private String provinces;
 
-    /**
-     * 区
-     */
+    /** 区 */
     @Excel(name = "区")
     private String city;
 
-    /**
-     * 男或者女
-     */
+    /** 男或者女 */
     private String sex;
 
-    /**
-     * 年龄
-     */
+    /** 年龄 */
     private Integer age;
 
-    /**
-     * 微信
-     */
+    /** 微信 */
     private String weixin;
 
-    /**
-     * qq
-     */
+    /** qq */
     private String qq;
 
-    /**
-     * 意向等级
-     */
+    /** 意向等级 */
     private String level;
 
-    /**
-     * 意向学科
-     */
+    /** 意向学科 */
     private String subject;
 
-    /**
-     * 课程
-     */
+    /** 课程 */
     private Long courseId;
 
-    /**
-     * 职业
-     */
+    /** 职业 */
     private String occupation;
 
-    /**
-     * 学历
-     */
+    /** 学历 */
     private String education;
 
-    /**
-     * 在职情况
-     */
+    /** 在职情况 */
     private String job;
 
-    /**
-     * 薪资
-     */
+    /** 薪资 */
     private String salary;
 
-    /**
-     * 专业
-     */
+    /** 专业 */
     private String major;
 
-    /**
-     * 希望薪资
-     */
+    /** 希望薪资 */
     private String expectedSalary;
 
-    /**
-     * 学习原因
-     */
+    /** 学习原因 */
     private String reasons;
 
-    /**
-     * 职业计划
-     */
+    /** 职业计划 */
     private String plan;
 
-    /**
-     * 计划时间
-     */
+    /** 计划时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "计划时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date planTime;
 
-    /**
-     * 其他意向
-     */
+    /** 其他意向 */
     @Excel(name = "其他意向")
     private String otherIntention;
 
@@ -140,14 +94,10 @@ public class BusinessTrackVo {
     private String keyItems;
 
 
-    /**
-     * 沟通纪要
-     */
+    /** 沟通纪要 */
     private String record;
 
-    /**
-     * 跟进状态
-     */
+    /** 跟进状态 */
     private String trackStatus;
 
     public Long getBusinessId() {
@@ -385,6 +335,36 @@ public class BusinessTrackVo {
 
     @Override
     public String toString() {
-        return "BusinessTrackVo{" + "businessId=" + businessId + ", name='" + name + '\'' + ", phone='" + phone + '\'' + ", channelId='" + channelId + '\'' + ", activityId=" + activityId + ", provinces='" + provinces + '\'' + ", city='" + city + '\'' + ", sex='" + sex + '\'' + ", age=" + age + ", weixin='" + weixin + '\'' + ", qq='" + qq + '\'' + ", level='" + level + '\'' + ", subject='" + subject + '\'' + ", courseId=" + courseId + ", occupation='" + occupation + '\'' + ", education='" + education + '\'' + ", job='" + job + '\'' + ", salary='" + salary + '\'' + ", major='" + major + '\'' + ", expectedSalary='" + expectedSalary + '\'' + ", reasons='" + reasons + '\'' + ", plan='" + plan + '\'' + ", planTime=" + planTime + ", otherIntention='" + otherIntention + '\'' + ", nextTime=" + nextTime + ", remark='" + remark + '\'' + ", keyItems='" + keyItems + '\'' + ", record='" + record + '\'' + ", trackStatus='" + trackStatus + '\'' + '}';
+        return "BusinessTrackVo{" +
+                "businessId=" + businessId +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", channelId='" + channelId + '\'' +
+                ", activityId=" + activityId +
+                ", provinces='" + provinces + '\'' +
+                ", city='" + city + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", weixin='" + weixin + '\'' +
+                ", qq='" + qq + '\'' +
+                ", level='" + level + '\'' +
+                ", subject='" + subject + '\'' +
+                ", courseId=" + courseId +
+                ", occupation='" + occupation + '\'' +
+                ", education='" + education + '\'' +
+                ", job='" + job + '\'' +
+                ", salary='" + salary + '\'' +
+                ", major='" + major + '\'' +
+                ", expectedSalary='" + expectedSalary + '\'' +
+                ", reasons='" + reasons + '\'' +
+                ", plan='" + plan + '\'' +
+                ", planTime=" + planTime +
+                ", otherIntention='" + otherIntention + '\'' +
+                ", nextTime=" + nextTime +
+                ", remark='" + remark + '\'' +
+                ", keyItems='" + keyItems + '\'' +
+                ", record='" + record + '\'' +
+                ", trackStatus='" + trackStatus + '\'' +
+                '}';
     }
 }

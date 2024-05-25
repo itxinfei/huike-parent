@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * rule 处理策略
- * 根据规则系统自动分配对应的商机专员来处理
- * 1.意向学科是java的分配给lisi商机专员
- * 2.意向学科是前端的分配给lisi1商机专员
+ *  rule 处理策略
+ *  根据规则系统自动分配对应的商机专员来处理
+ *  1.意向学科是java的分配给lisi商机专员
+ *  2.意向学科是前端的分配给lisi1商机专员
  */
 @ConditionalOnProperty(name = "rule.transfor", havingValue = "rule")
 @Service("BussinessruleStrategy")
@@ -32,14 +32,16 @@ public class RuleStrategy implements Rule {
 
     //这里能够成功注入吗？
     @Autowired
-    private static TbAssignRecordMapper assignRecordMapper;
+    //private static TbAssignRecordMapper assignRecordMapper;
+    private TbAssignRecordMapper assignRecordMapper;
 
     //这里能够成功注入吗？
     @Autowired
-    private static SysUserMapper userMapper;
+    //private static SysUserMapper userMapper;
+    private SysUserMapper userMapper;
 
-    @Autowired
-    private static SysDictDataMapper dictDataMapper;
+    //@Autowired
+    //private static SysDictDataMapper dictDataMapper;
 
     private static SysUser lisi = new SysUser();
 
@@ -53,52 +55,70 @@ public class RuleStrategy implements Rule {
 
     //这里是通过空间换时间的方式来将JAVA学科和前端学科，lisi,lisi1 存储在静态资源中
     //这里通过mapper去进行查询，能够查询成功吗
-
     /**
      * 参考一下adminStrategy是怎么做的
      */
-    static {
-        try {
+    /*static{
+        try{
             //空间换时间的方式将数据库中的学科读取到内存中
             //预加载学科数据到内存中
             List<SysDictData> course_subject = dictDataMapper.selectDictDataByType("course_subject");
-            for (SysDictData index : course_subject) {
+            for (SysDictData index: course_subject) {
                 //找到java和前端两个学科对应的数值
-                if (index.getDictLabel().equals("Java")) {
+                if(index.getDictLabel().equals("Java")){
                     subjectJAVA = index;
                 }
-                if (index.getDictLabel().equals("前端")) {
+                if(index.getDictLabel().equals("前端")){
                     subjectHtml = index;
                 }
             }
             //预加载lisi和lisi1的数据到内存中
             lisi = userMapper.selectUserByName("lisi");
             lisi1 = userMapper.selectUserByName("lisi1");
-        } catch (Exception e) {
+        }catch (Exception e){
         }
-    }
+    }*/
 
+    @PostConstruct
+    public void init() {
+        //空间换时间的方式将数据库中的学科读取到内存中
+        //预加载学科数据到内存中
+        List<SysDictData> course_subject = DictUtils.getDictCache("course_subject");
+        for (SysDictData index: course_subject) {
+            //找到java和前端两个学科对应的数值
+            if(index.getDictLabel().equals("Java")){
+                subjectJAVA = index;
+            }
+            if(index.getDictLabel().equals("前端")){
+                subjectHtml = index;
+            }
+        }
+        //预加载lisi和lisi1的数据到内存中
+        lisi = userMapper.selectUserByName("lisi");
+        lisi1 = userMapper.selectUserByName("lisi1");
+    }
 
     /**
      * 定义一些规则来自动分配
-     * <p>
+     *
      * 1.意向学科是java的分配给lisi商机专员
      * 2.意向学科是前端的分配给lisi1商机专员
      * 3.如果没有匹配到规则则不分配等待管理员和主管来进行分配
-     *
      * @param tbBusiness
      * @return
      */
     @Override
     public Integer transforBusiness(TbBusiness tbBusiness) {
         //注意处理空指针的问题
-        if (tbBusiness.getSubject().equals(subjectJAVA.getDictLabel())) {
+        //if(tbBusiness.getSubject().equals(subjectJAVA.getDictLabel())){
+        if(subjectJAVA.getDictValue().equals(tbBusiness.getSubject())){
             //如果意向学科是java--分配给lisi
-            return distribute(tbBusiness, lisi);
-        } else if (tbBusiness.getSubject().equals(subjectHtml.getDictLabel())) {
+            return distribute(tbBusiness,lisi);
+        //}else if(tbBusiness.getSubject().equals(subjectHtml.getDictLabel())){
+        }else if(subjectHtml.getDictValue().equals(tbBusiness.getSubject())){
             //如果意向学科是前端--分配给lisi1
-            return distribute(tbBusiness, lisi1);
-        } else {
+            return distribute(tbBusiness,lisi1);
+        }else{
             //不进行分配，不添加分配记录-----即待分配状态
             return 1;
         }
@@ -111,13 +131,12 @@ public class RuleStrategy implements Rule {
      * 看我能少走弯路！！！！！！！！！！！！
      * 这部分代码没有预设bug，不用研究
      * 该方法主要是将商机分配给具体的人的方法
-     *
      * @param business
      * @param user
      * @return
      */
-    private int distribute(TbBusiness business, SysUser user) {
-        TbAssignRecord tbAssignRecord = new TbAssignRecord();
+    private int distribute(TbBusiness business,SysUser user){
+        TbAssignRecord tbAssignRecord =new TbAssignRecord();
         tbAssignRecord.setAssignId(business.getId());
         tbAssignRecord.setUserId(user.getUserId());
         tbAssignRecord.setUserName(user.getUserName());

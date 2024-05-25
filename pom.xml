@@ -7,24 +7,10 @@
     <groupId>com.huike</groupId>
     <artifactId>huike-parent</artifactId>
     <version>3.4.0</version>
-    <packaging>pom</packaging>
 
     <name>huike</name>
     <url>http://www.huike.vip</url>
     <description>会客crm管理系统</description>
-
-    <modules>
-        <module>huike-admin</module>
-        <module>huike-framework</module>
-        <module>huike-system</module>
-        <module>huike-common</module>
-        <module>huike-clues</module>
-        <module>huike-business</module>
-        <module>huike-generator</module>
-        <module>huike-contract</module>
-        <module>huike-report</module>
-        <module>huike-task</module>
-    </modules>
 
     <properties>
         <huike.version>3.4.0</huike.version>
@@ -241,6 +227,22 @@
         </dependencies>
     </dependencyManagement>
 
+    <modules>
+        <module>huike-admin</module>
+        <module>huike-framework</module>
+        <module>huike-system</module>
+        <module>huike-common</module>
+        <module>huike-clues</module>
+        <module>huike-business</module>
+        <module>huike-mybatis-review</module>
+        <module>huike-contract</module>
+        <module>huike-report</module>
+        <module>huike-task</module>
+    </modules>
+    <packaging>pom</packaging>
+
+
+
     <build>
         <extensions>
             <extension>
@@ -280,7 +282,7 @@
                 </dependencies>
                 <configuration>
                     <serverId>huike</serverId>
-                    <fromFile>/huike-parent/huike-admin/target/huike-admin.jar</fromFile>
+                    <fromFile>F:/crm/huike-parent/huike-admin/target/huike-admin.jar</fromFile>
                     <url>scp://172.17.2.65/root/soft/</url>
                     <commands>
                         <command>sh /root/soft/jk.sh</command>
@@ -290,6 +292,8 @@
                 </configuration>
             </plugin>-->
         </plugins>
+
+
     </build>
 
     <repositories>
@@ -326,5 +330,6 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
 
 </project>

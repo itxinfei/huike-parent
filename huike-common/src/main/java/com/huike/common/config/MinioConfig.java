@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Hope
  * @className: MinioConfig
+ * @author Hope
  * @date 2020/7/28 13:43
  * @description: MinioConfig
  */

@@ -57,55 +57,76 @@ public interface ReportMapper {
 						  @Param("endTime") String endCreateTime,
 						  @Param("username") String username);
 
-
-
 	/**=========================================今日简报========================================*/
 
-
-
-/**=========================================待办========================================*/
 	/**
-	 * 待跟进线索数目
-	 * @param beginCreateTime
-	 * @param endCreateTime
-	 * @param username
+	 * 首页--今日简报--今日线索数量
+	 * @param today 今日
+	 * @param username 用户名
 	 * @return
 	 */
-	Integer getTofollowedCluesNum(@Param("startTime") String beginCreateTime,
-								  @Param("endTime") String endCreateTime,
-								  @Param("username") String username);
+	Integer getTodayCluesNum(@Param("now") String today,@Param("username") String username);
 
 	/**
-	 * 待跟进商机数目
-	 * @param beginCreateTime
-	 * @param endCreateTime
-	 * @param username
+	 * 首页--今日简报--今日商机数量
+	 * @param today 今日
+	 * @param username 用户名
 	 * @return
 	 */
-	Integer getTofollowedBusinessNum(@Param("startTime") String beginCreateTime,
-									 @Param("endTime") String endCreateTime,
-									 @Param("username") String username);
+	Integer getTodayBusinessNum(@Param("now") String today,@Param("username") String username);
 
 	/**
-	 * 待分配线索数目
-	 * @param beginCreateTime
-	 * @param endCreateTime
-	 * @param username
+	 * 首页--今日简报--今日合同数量
+	 * @param today 今日
+	 * @param username 用户名
 	 * @return
 	 */
-	Integer getToallocatedCluesNum(@Param("startTime") String beginCreateTime,
-								   @Param("endTime") String endCreateTime,
-								   @Param("username") String username);
+	Integer getTodayContractNum(@Param("now") String today,@Param("username") String username);
 
 	/**
-	 * 待分配商机数目
-	 * @param beginCreateTime
-	 * @param endCreateTime
-	 * @param username
+	 * 首页--今日简报--今日销售金额
+	 * @param today 今日
+	 * @param username 用户名
 	 * @return
 	 */
-	Integer getToallocatedBusinessNum(@Param("startTime") String beginCreateTime,
-									  @Param("endTime") String endCreateTime,
-									  @Param("username") String username);
+	Double getTodaySalesAmount(@Param("now") String today,@Param("username") String username);
+
+	/**=========================================待办========================================*/
+
+	/**
+	 * 首页--今日待办--待分配线索数量
+	 * @param beginCreateTime 开始时间
+	 * @param endCreateTime 结束时间
+	 * @param username 用户名
+	 * @return
+	 */
+	Integer getToallocatedCluesNum(@Param("startTime") String beginCreateTime,@Param("endTime") String endCreateTime,@Param("username") String username);
+
+	/**
+	 * 首页--今日待办--待分配商机数量
+	 * @param beginCreateTime 开始时间
+	 * @param endCreateTime 结束时间
+	 * @param username 用户名
+	 * @return
+	 */
+	Integer getToallocatedBusinessNum(@Param("startTime") String beginCreateTime,@Param("endTime") String endCreateTime,@Param("username") String username);
+
+	/**
+	 * 首页--今日待办--待跟进线索数量
+	 * @param beginCreateTime 开始时间
+	 * @param endCreateTime 结束时间
+	 * @param username 用户名
+	 * @return
+	 */
+	Integer getTofollowedCluesNum(@Param("startTime") String beginCreateTime,@Param("endTime") String endCreateTime,@Param("username") String username);
+
+	/**
+	 * 首页--今日待办--待跟进商机数量
+	 * @param beginCreateTime 开始时间
+	 * @param endCreateTime 结束时间
+	 * @param username 用户名
+	 * @return
+	 */
+	Integer getTofollowedBusinessNum(@Param("startTime") String beginCreateTime,@Param("endTime") String endCreateTime,@Param("username") String username);
 
 }

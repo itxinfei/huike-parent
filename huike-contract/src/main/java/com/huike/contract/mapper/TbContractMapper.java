@@ -3,15 +3,12 @@ package com.huike.contract.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.huike.business.domain.vo.BusinessChangeVO;
 import com.huike.clues.domain.vo.IndexStatisticsVo;
 import com.huike.contract.domain.TbContract;
-import com.huike.report.domain.vo.PieVO;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * 合同Mapper接口
- *
  * @date 2021-05-19
  */
 public interface TbContractMapper {
@@ -61,63 +58,62 @@ public interface TbContractMapper {
 
     /**
      * 合同统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
-    public List<Map<String, Object>> contractStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> contractStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
 
     /**
      * 销售统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
-    public List<Map<String, Object>> salesStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> salesStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
     /**
      * 渠道统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
-    public List<Map<String, Object>> chanelStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> chanelStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
     /**
      * 活动统计
-     *
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
-    public List<Map<String, Object>> activityStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> activityStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
 
-    public List<Map<String, Object>> deptStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> deptStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
-    public List<Map<String, Object>> channelStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> channelStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
-    public List<Map<String, Object>> ownerShipStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> ownerShipStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
-    public Map<String, Object> countByActivity(TbContract tbContract);
+    public Map<String,Object> countByActivity(TbContract tbContract);
 
-
-    public List<Map<String, Object>> contractStatisticsByUser(IndexStatisticsVo query);
+    public List<Map<String,Object>> contractStatisticsByUser(IndexStatisticsVo query);
 
     /**
-     * 合同数量
-     *
+     * 学科统计
      * @param beginCreateTime
      * @param endCreateTime
      * @return
      */
-    int getContractNums(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
+    public List<Map<String,Object>> subjectStatistics(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
-    List<BusinessChangeVO> getVOlist(String beginCreateTime, String endCreateTime);
+    /**
+     * 统计商机转化的合同数
+     * @param beginCreateTime
+     * @param endCreateTime
+     * @return
+     */
+    public int contractNumsFromBusiness(@Param("beginCreateTime") String beginCreateTime, @Param("endCreateTime") String endCreateTime);
 
-    List<PieVO> selectProject();
 }

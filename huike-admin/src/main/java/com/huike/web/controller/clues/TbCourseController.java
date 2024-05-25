@@ -23,6 +23,7 @@ import com.huike.common.enums.BusinessType;
 
 /**
  * 课程管理Controller
+ *
  * @date 2021-04-01
  */
 @RestController
@@ -44,14 +45,14 @@ public class TbCourseController extends BaseController {
 
 
     /**
-     * @ApiOperation("课程下拉列表")
      * @param subject
      * @return
+     * @ApiOperation("课程下拉列表")
      */
     @GetMapping("/listselect")
     public AjaxResult list(String subject) {
-        TbCourse query =new TbCourse();
-        if(subject!=null){
+        TbCourse query = new TbCourse();
+        if (subject != null) {
             query.setSubject(subject);
         }
         return AjaxResult.success(tbCourseService.selectTbCourseList(query));
@@ -72,8 +73,7 @@ public class TbCourseController extends BaseController {
     @PreAuthorize("@ss.hasPermi('clues:course:add')")
     @Log(title = "课程管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody TbCourse tbCourse)
-    {
+    public AjaxResult add(@RequestBody TbCourse tbCourse) {
         return toAjax(tbCourseService.insertTbCourse(tbCourse));
     }
 
@@ -83,8 +83,7 @@ public class TbCourseController extends BaseController {
     @PreAuthorize("@ss.hasPermi('clues:course:edit')")
     @Log(title = "课程管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody TbCourse tbCourse)
-    {
+    public AjaxResult edit(@RequestBody TbCourse tbCourse) {
         return toAjax(tbCourseService.updateTbCourse(tbCourse));
     }
 
@@ -93,9 +92,8 @@ public class TbCourseController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('clues:course:remove')")
     @Log(title = "课程管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(tbCourseService.deleteTbCourseByIds(ids));
     }
 }

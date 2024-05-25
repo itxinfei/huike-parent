@@ -1,7 +1,6 @@
 package com.huike.clues.domain;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.huike.common.utils.DateUtils;
@@ -12,7 +11,6 @@ import com.huike.common.core.domain.BaseEntity;
 
 /**
  * 线索管理对象 tb_clue
- *
  * @date 2021-04-02
  */
 public class TbClue extends BaseEntity {
@@ -23,98 +21,66 @@ public class TbClue extends BaseEntity {
      */
     private Long id;
 
-    /**
-     * 客户姓名
-     */
+    /** 客户姓名 */
     @Excel(name = "客户姓名")
     private String name;
 
-    /**
-     * 手机号
-     */
+    /** 手机号 */
     @Excel(name = "手机号")
     private String phone;
 
-    /**
-     * 渠道
-     */
+    /** 渠道 */
     @Excel(name = "渠道")
     private String channel;
 
-    /**
-     * 活动id
-     */
+    /** 活动id */
     @Excel(name = "活动id")
     private Long activityId;
 
-    /**
-     * 活动名称
-     */
+    /** 活动名称 */
     private String activityName;
 
-    /**
-     * 活动名称
-     */
+    /** 活动名称 */
     private String activityInfo;
 
-    /**
-     * 1 男 0 女
-     */
+    /** 1 男 0 女 */
     @Excel(name = "1 男 0 女")
     private String sex;
 
-    /**
-     * 年龄
-     */
+    /** 年龄 */
     @Excel(name = "年龄")
     private Integer age;
 
-    /**
-     * 微信
-     */
+    /** 微信 */
     @Excel(name = "微信")
     private String weixin;
 
-    /**
-     * qq
-     */
+    /** qq */
     @Excel(name = "qq")
     private String qq;
 
-    /**
-     * 意向等级
-     */
+    /** 意向等级 */
     @Excel(name = "意向等级")
     private String level;
 
-    /**
-     * 意向学科
-     */
+    /** 意向学科 */
     @Excel(name = "意向学科")
     private String subject;
 
-    /**
-     * 状态(已分配1  进行中2  回收3  伪线索4)
-     */
+    /** 状态(已分配1  进行中2  回收3  伪线索4) */
     @Excel(name = "状态(已分配1  进行中2  回收3  伪线索4)")
     private String status;
 
-    /**
-     * 分配人
-     */
+    /** 分配人 */
     @Excel(name = "分配人")
     private String assignBy;
 
-    /**
-     * 分配时间
-     */
+    /** 分配时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Excel(name = "分配时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date assignTime;
 
-    /**
-     * 所属人
-     */
+    /** 所属人 */
     @Excel(name = "所属人")
     private String owner;
 
@@ -122,33 +88,27 @@ public class TbClue extends BaseEntity {
     private Date ownerTime;
 
 
-    /**
-     * 伪线索失败次数(最大数3次)
-     */
+    /** 伪线索失败次数(最大数3次) */
     @Excel(name = "伪线索失败次数(最大数3次)")
     private int falseCount;
 
-    /**
-     * 下次跟进时间
-     */
+    /** 下次跟进时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date nextTime;
-
+    
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
-
-
+    
+    
     public Date getEndTime() {
-        return endTime;
-    }
+		return endTime;
+	}
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
-    /**
-     * 创建人id
-     */
+	/** 创建人id */
     @Excel(name = "创建人id")
     private Long userId;
 
@@ -156,8 +116,8 @@ public class TbClue extends BaseEntity {
     private String createTimeStr;
 
     private String transfer; //是否转派 默认0
-
-    public String getTransfer() {
+    
+	public String getTransfer() {
         return transfer;
     }
 
@@ -166,7 +126,7 @@ public class TbClue extends BaseEntity {
     }
 
     public String getCreateTimeStr() {
-        if (getCreateTime() != null) {
+        if(getCreateTime()!=null){
             this.createTimeStr = DateUtils.dateTime(getCreateTime());
         }
         return createTimeStr;
@@ -200,35 +160,40 @@ public class TbClue extends BaseEntity {
         this.userId = userId;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
-
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
-
-    public void setPhone(String phone) {
+    public void setPhone(String phone)
+    {
         this.phone = phone;
     }
 
-    public String getPhone() {
+    public String getPhone()
+    {
         return phone;
     }
-
-    public void setChannel(String channel) {
+    public void setChannel(String channel)
+    {
         this.channel = channel;
     }
 
-    public String getChannel() {
+    public String getChannel()
+    {
         return channel;
     }
 
@@ -240,11 +205,13 @@ public class TbClue extends BaseEntity {
         this.activityId = activityId;
     }
 
-    public void setSex(String sex) {
+    public void setSex(String sex)
+    {
         this.sex = sex;
     }
 
-    public String getSex() {
+    public String getSex()
+    {
         return sex;
     }
 
@@ -256,59 +223,67 @@ public class TbClue extends BaseEntity {
         this.age = age;
     }
 
-    public void setWeixin(String weixin) {
+    public void setWeixin(String weixin)
+    {
         this.weixin = weixin;
     }
 
-    public String getWeixin() {
+    public String getWeixin()
+    {
         return weixin;
     }
-
-    public void setQq(String qq) {
+    public void setQq(String qq)
+    {
         this.qq = qq;
     }
 
-    public String getQq() {
+    public String getQq()
+    {
         return qq;
     }
-
-    public void setLevel(String level) {
+    public void setLevel(String level)
+    {
         this.level = level;
     }
 
-    public String getLevel() {
+    public String getLevel()
+    {
         return level;
     }
-
-    public void setSubject(String subject) {
+    public void setSubject(String subject)
+    {
         this.subject = subject;
     }
 
-    public String getSubject() {
+    public String getSubject()
+    {
         return subject;
     }
-
-    public void setStatus(String status) {
+    public void setStatus(String status)
+    {
         this.status = status;
     }
 
-    public String getStatus() {
+    public String getStatus()
+    {
         return status;
     }
-
-    public void setAssignBy(String assignBy) {
+    public void setAssignBy(String assignBy)
+    {
         this.assignBy = assignBy;
     }
 
-    public String getAssignBy() {
+    public String getAssignBy()
+    {
         return assignBy;
     }
-
-    public void setAssignTime(Date assignTime) {
+    public void setAssignTime(Date assignTime)
+    {
         this.assignTime = assignTime;
     }
 
-    public Date getAssignTime() {
+    public Date getAssignTime()
+    {
         return assignTime;
     }
 
@@ -320,11 +295,13 @@ public class TbClue extends BaseEntity {
         this.falseCount = falseCount;
     }
 
-    public void setNextTime(Date nextTime) {
+    public void setNextTime(Date nextTime)
+    {
         this.nextTime = nextTime;
     }
 
-    public Date getNextTime() {
+    public Date getNextTime()
+    {
         return nextTime;
     }
 
@@ -346,19 +323,49 @@ public class TbClue extends BaseEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", getId()).append("name", getName()).append("phone", getPhone()).append("channel", getChannel()).append("activityId", getActivityId()).append("sex", getSex()).append("age", getAge()).append("weixin", getWeixin()).append("qq", getQq()).append("level", getLevel()).append("subject", getSubject()).append("status", getStatus()).append("createTime", getCreateTime()).append("createTimeStr", getCreateTimeStr()).append("userId", getUserId()).append("createBy", getCreateBy()).append("owner", getOwner()).append("assignBy", getAssignBy()).append("assignTime", getAssignTime()).append("falseCount", getFalseCount()).append("nextTime", getNextTime()).toString();
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", getId())
+                .append("name", getName())
+                .append("phone", getPhone())
+                .append("channel", getChannel())
+                .append("activityId", getActivityId())
+                .append("sex", getSex())
+                .append("age", getAge())
+                .append("weixin", getWeixin())
+                .append("qq", getQq())
+                .append("level", getLevel())
+                .append("subject", getSubject())
+                .append("status", getStatus())
+                .append("createTime", getCreateTime())
+                .append("createTimeStr", getCreateTimeStr())
+                .append("userId", getUserId())
+                .append("createBy", getCreateBy())
+                .append("owner", getOwner())
+                .append("assignBy", getAssignBy())
+                .append("assignTime", getAssignTime())
+                .append("falseCount", getFalseCount())
+                .append("nextTime", getNextTime())
+                .toString();
     }
 
 
-    public enum StatusType {
+
+    public enum StatusType{
 
 
-        UNFOLLOWED("待跟进", "1"), FOLLOWING("跟进中", "2"), RECOVERY("回收", "3"), FALSE("伪线索/踢回公海", "4"), DELETED("删除", "5"), TOBUSINESS("转换商机", "6"), TOCUSTOMER("转换客户", "7");
+        UNFOLLOWED("待跟进","1"),
+        FOLLOWING("跟进中","2"),
+        RECOVERY("回收","3"),
+        FALSE("伪线索/踢回公海","4"),
+        DELETED("删除","5"),
+        TOBUSINESS("转换商机","6"),
+        TOCUSTOMER("转换客户","7");
 
         private String name;
         private String value;
 
-        private StatusType(String name, String value) {
+        private StatusType(String name,String value)
+        {
             this.name = name;
             this.value = value;
         }
@@ -372,21 +379,23 @@ public class TbClue extends BaseEntity {
         }
     }
 
-    public enum ImportDictType {
+    public enum ImportDictType
+    {
 
-        CHANNEL("渠道来源", "clues_item"),
+        CHANNEL("渠道来源","clues_item"),
 
-        SUBJECT("意向学科", "course_subject"),
+        SUBJECT("意向学科","course_subject"),
 
-        LEVEL("意向学科", "clues_level"),
+        LEVEL("意向学科","clues_level"),
 
-        SEX("性别", "sys_user_sex");
+        SEX("性别","sys_user_sex");
 
 
         private String name;
         private String dictType;
 
-        private ImportDictType(String name, String dictType) {
+        private ImportDictType(String name, String dictType)
+        {
             this.name = name;
             this.dictType = dictType;
         }
@@ -399,6 +408,7 @@ public class TbClue extends BaseEntity {
             return dictType;
         }
     }
+
 
 
 }
